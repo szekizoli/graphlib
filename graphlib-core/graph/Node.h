@@ -79,26 +79,26 @@ namespace graphlib { namespace graph {
 			Node(Node&& other);
 			Node& operator=(const Node& other) = delete;
 			Node& operator=(Node&& other);
-			virtual ~Node() = default;
+			~Node() = default;
 
-			GraphId id() const { return _id; }
-			Label label() const { return _label; }
-			const Func& function() const { return *_function.get(); }
-			const NodeDescriptor& descriptor() const { return _descriptor; }
-			const vector<Node>& predecessors() const { return _predecessors; }
-			const vector<Node>& successors() const { return _successors; }
-			nodeptr predecessor(std::size_t i) const { return &_predecessors[i]; }
-			nodeptr successor(std::size_t i) const { return &_successors[i]; }
-			size_t predecessor_size() const { return _predecessors.size(); }
-			size_t successor_size() const { return _successors.size(); }
+			GraphId id()                          const { return _id; }
+			Label label()                         const { return _label; }
+			const Func& function()                const { return *_function.get(); }
+			const NodeDescriptor& descriptor()    const { return _descriptor; }
+			const vector<nodeptr>& predecessors() const { return _predecessors; }
+			const vector<nodeptr>& successors()   const { return _successors; }
+			nodeptr predecessor(std::size_t i)    const { return _predecessors[i]; }
+			nodeptr successor(std::size_t i)      const { return _successors[i]; }
+			size_t predecessorSize()              const { return _predecessors.size(); }
+			size_t successorSize()                const { return _successors.size(); }
 
 		private:
 			GraphId _id;
 			Label _label;
 			NodeDescriptor _descriptor;
 			FuncPtr _function;
-			vector<Node> _predecessors;
-			vector<Node> _successors;
+			vector<nodeptr> _predecessors;
+			vector<nodeptr> _successors;
 
 			void predecessors(vector<nodeptr>);
 			void successors(vector<nodeptr>);
@@ -106,7 +106,24 @@ namespace graphlib { namespace graph {
 
 		// for building node
 		class NodeDefinition{
+		public:
+			NodeDefinition();
+			NodeDefinition(Label label_, FuncPtr&& func_, NodeDescriptor descriptor_);
+			NodeDefinition(const NodeDefinition& other) = delete;
+			NodeDefinition(NodeDefinition&& other);
+			NodeDefinition& operator=(const NodeDefinition& other) = delete;
+			NodeDefinition& operator=(NodeDefinition&& other);
+			~NodeDefinition() = default;
 
+			NodeDefinition& addPrecedessor(NodeDefinition*);
+			NodeDefinition& addSuccessor(NodeDefinition*);
+			Node createNode(GraphId);
+		private:
+			Label _label;
+			NodeDescriptor _descriptor;
+			FuncPtr _function;
+			vector<NodeDefinition*> _predecessors;
+			vector<NodeDefinition*> _successors;
 		};
 }}
 #endif

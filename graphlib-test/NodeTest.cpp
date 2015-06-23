@@ -22,8 +22,20 @@ namespace GraphLibraryTest
 		{ CREATE_MEMORY_SNAPSHOT {
 			Node n;
 			unsigned expected_size = 0;
-			Assert::AreEqual(expected_size, n.predecessor_size(), L"", LINE_INFO());
-			Assert::AreEqual(expected_size, n.successor_size(), L"", LINE_INFO());
+			Assert::AreEqual(expected_size, n.predecessorSize(), L"", LINE_INFO());
+			Assert::AreEqual(expected_size, n.successorSize(), L"", LINE_INFO());
+		} ASSERT_MEMORY_SNAPSHOT }
+
+		TEST_METHOD(TestSimpleNodeDefinition)
+		{ CREATE_MEMORY_SNAPSHOT {
+			NodeDefinition nd(L"test-node", std::make_unique<FunctionAdd>(), NodeDescriptor());
+			Node n = nd.createNode(0);
+			unsigned expected_value = 0;
+			Assert::AreEqual(expected_value, n.id(), L"", LINE_INFO());
+			std::wstring expected_label = L"test-node";
+			Assert::AreEqual(expected_label, n.label(), L"", LINE_INFO());
+			Assert::AreEqual(expected_value, n.predecessorSize(), L"", LINE_INFO());
+			Assert::AreEqual(expected_value, n.successorSize(), L"", LINE_INFO());
 		} ASSERT_MEMORY_SNAPSHOT }
 	};
 }
