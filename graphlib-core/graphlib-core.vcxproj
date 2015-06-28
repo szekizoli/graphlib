@@ -47,6 +47,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\graph;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -77,10 +78,14 @@
     <ClInclude Include="graph\function\Function.h" />
     <ClInclude Include="graph\function\FunctionBuilder.h" />
     <ClInclude Include="graph\function\FunctionDescriptor.h" />
+    <ClInclude Include="graph\Graph.h" />
+    <ClInclude Include="graph\Node.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Graph.cpp" />
     <ClCompile Include="graph\function\Function.cpp" />
     <ClCompile Include="graph\function\FunctionBuilder.cpp" />
+    <ClCompile Include="graph\Node.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

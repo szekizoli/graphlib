@@ -75,9 +75,9 @@ namespace graphlib { namespace graph {
 			using nodeptr = const Node*;
 			Node();
 			Node(GraphId id_, Label label_, FuncPtr&& func_, NodeDescriptor descriptor_);
-			Node(const Node& other) = delete;
+			Node(const Node& other);
 			Node(Node&& other);
-			Node& operator=(const Node& other) = delete;
+			Node& operator=(const Node& other);
 			Node& operator=(Node&& other);
 			~Node() = default;
 
@@ -100,30 +100,9 @@ namespace graphlib { namespace graph {
 			vector<nodeptr> _predecessors;
 			vector<nodeptr> _successors;
 
-			void predecessors(vector<nodeptr>);
-			void successors(vector<nodeptr>);
-		};
-
-		// for building node
-		class NodeDefinition{
-		public:
-			NodeDefinition();
-			NodeDefinition(Label label_, FuncPtr&& func_, NodeDescriptor descriptor_);
-			NodeDefinition(const NodeDefinition& other) = delete;
-			NodeDefinition(NodeDefinition&& other);
-			NodeDefinition& operator=(const NodeDefinition& other) = delete;
-			NodeDefinition& operator=(NodeDefinition&& other);
-			~NodeDefinition() = default;
-
-			NodeDefinition& addPrecedessor(NodeDefinition*);
-			NodeDefinition& addSuccessor(NodeDefinition*);
-			Node createNode(GraphId);
-		private:
-			Label _label;
-			NodeDescriptor _descriptor;
-			FuncPtr _function;
-			vector<NodeDefinition*> _predecessors;
-			vector<NodeDefinition*> _successors;
+			friend class GraphBuilder;
+			void addPredecessor(nodeptr);
+			void addSuccessor(nodeptr);
 		};
 }}
 #endif

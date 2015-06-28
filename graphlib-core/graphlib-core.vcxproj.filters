@@ -25,6 +25,9 @@
     <Filter Include="Source Files\Graph\Function">
       <UniqueIdentifier>{cf603755-9d66-40f0-a5d0-d30667bc8618}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Graph\Node">
+      <UniqueIdentifier>{40faefd6-0654-4a31-b359-b5d2ddd9ceba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -39,6 +42,12 @@
     <ClInclude Include="graph\function\FunctionDescriptor.h">
       <Filter>Header Files\Graph\Function</Filter>
     </ClInclude>
+    <ClInclude Include="graph\Graph.h">
+      <Filter>Header Files\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="graph\Node.h">
+      <Filter>Header Files\Graph</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="graph\function\Function.cpp">
@@ -46,6 +55,12 @@
     </ClCompile>
     <ClCompile Include="graph\function\FunctionBuilder.cpp">
       <Filter>Source Files\Graph\Function</Filter>
+    </ClCompile>
+    <ClCompile Include="graph\Node.cpp">
+      <Filter>Source Files\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph.cpp">
+      <Filter>Source Files\Graph</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
