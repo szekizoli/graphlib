@@ -22,6 +22,7 @@ namespace GraphLibraryTest
 			FunctionBuilder fb(FunctionAdd::NAME);
 			auto function = fb.build();
 			Assert::IsNotNull(function.get(), L"Built add function is null.", LINE_INFO());
+			Assert::AreEqual(FunctionAdd::NAME, function->name(), L"Name of function doesn't match.", LINE_INFO());
 			auto result = function->evaluate({ });
 			Assert::AreEqual(result, 0.0, L"Result doesn't match", LINE_INFO());
 			result = function->evaluate({ 1 });
@@ -57,6 +58,7 @@ namespace GraphLibraryTest
 			FunctionBuilder fb(FunctionConstant::NAME);
 			auto function = fb.build(2.0);
 			Assert::IsNotNull(function.get(), L"Built constant function is null.", LINE_INFO());
+			Assert::AreEqual(FunctionConstant::NAME, function->name(), L"Name of function doesn't match.", LINE_INFO());
 			auto result = function->evaluate({});
 			Assert::AreEqual(result, 2.0, L"Result doesn't match", LINE_INFO());
 			result = function->evaluate({ 1 });
@@ -78,6 +80,7 @@ namespace GraphLibraryTest
 			FunctionBuilder fb(FunctionReciprocal::NAME);
 			auto function = fb.build();
 			Assert::IsNotNull(function.get(), L"Built divide function is null.", LINE_INFO());
+			Assert::AreEqual(FunctionReciprocal::NAME, function->name(), L"Name of function doesn't match.", LINE_INFO());
 			auto result = function->evaluate({ 1, 2 });
 			Assert::AreEqual(result, 0.5, L"Result doesn't match", LINE_INFO());
 			result = function->evaluate({ 1, 2, 3 });
@@ -95,6 +98,7 @@ namespace GraphLibraryTest
 			FunctionBuilder fb(FunctionInput::NAME);
 			auto function = fb.build(2.0);
 			Assert::IsNotNull(function.get(), L"Built input function is null.", LINE_INFO());
+			Assert::AreEqual(FunctionInput::NAME, function->name(), L"Name of function doesn't match.", LINE_INFO());
 			auto result = function->evaluate({});
 			Assert::AreEqual(result, 2.0, L"Result doesn't match", LINE_INFO());
 			result = function->evaluate({ 1 });
@@ -116,7 +120,8 @@ namespace GraphLibraryTest
 			FunctionBuilder fb(FunctionMultiply::NAME);
 			auto function = fb.build();
 			Assert::IsNotNull(function.get(), L"Built add function is null.", LINE_INFO());
-			auto result = function->evaluate({ });
+			Assert::AreEqual(FunctionMultiply::NAME, function->name(), L"Name of function doesn't match.", LINE_INFO());
+			auto result = function->evaluate({});
 			Assert::AreEqual(result, 1.0, L"Result doesn't match", LINE_INFO());
 			result = function->evaluate({ 1 });
 			Assert::AreEqual(result, 1.0, L"Result doesn't match", LINE_INFO());
@@ -143,6 +148,7 @@ namespace GraphLibraryTest
 			FunctionBuilder fb(FunctionOpposite::NAME);
 			auto function = fb.build();
 			Assert::IsNotNull(function.get(), L"Built divide function is null.", LINE_INFO());
+			Assert::AreEqual(FunctionOpposite::NAME, function->name(), L"Name of function doesn't match.", LINE_INFO());
 			auto result = function->evaluate({ 1, 2 });
 			Assert::AreEqual(result, -1.0, L"Result doesn't match", LINE_INFO());
 			result = function->evaluate({ 1, 2, 3 });
