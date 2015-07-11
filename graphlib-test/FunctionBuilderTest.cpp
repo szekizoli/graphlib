@@ -138,9 +138,9 @@ namespace GraphLibraryTest
 			Assert::AreEqual(result, 24.0, L"Result doesn't match", LINE_INFO());
 		} ASSERT_MEMORY_SNAPSHOT }
 
-		TEST_METHOD(TestBuildFunctionSubtract)
+		TEST_METHOD(TestBuildFunctionOpposite)
 		{ CREATE_MEMORY_SNAPSHOT{
-			FunctionBuilder fb("SUBTRACT");
+			FunctionBuilder fb("OPPOSITE");
 			auto function = fb.build();
 			Assert::IsNotNull(function.get(), L"Built divide function is null.", LINE_INFO());
 			auto result = function->evaluate({ 1, 2 });

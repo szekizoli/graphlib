@@ -6,20 +6,23 @@
 namespace graphlib { namespace graph { namespace function {
 	void Function::init() {}
 	
+	const std::string FunctionAdd::NAME{ "ADD" };
+	const std::string FunctionConstant::NAME{ "CONSTANT" };
+	const std::string FunctionDivide::NAME{ "DIVIDE" };
+	const std::string FunctionInput::NAME{ "INPUT" };
+	const std::string FunctionOpposite::NAME{ "OPPOSITE" };
+	const std::string FunctionMultiply::NAME{ "MULTIPLY" };
+
 	FunctionAdd FunctionAdd::example(funcexample{});
 	FunctionConstant FunctionConstant::example{ funcexample{} };
 	FunctionDivide FunctionDivide::example{ funcexample{} };
 	FunctionInput FunctionInput::example{ funcexample{} };
-	FunctionSubtract FunctionSubtract::example{ funcexample{} };
+	FunctionOpposite FunctionOpposite::example{ funcexample{} };
 	FunctionMultiply FunctionMultiply::example{ funcexample{} };
 
 	//FunctionAdd
 	FunctionAdd::FunctionAdd(funcexample)
-		{ FunctionBuilder::registerFunction("ADD", this); }
-
-	FunctionAdd::FunctionAdd(std::string name) {
-		FunctionBuilder::registerFunction(name, this);
-	}
+		{ FunctionBuilder::registerFunction(FunctionAdd::NAME, this); }
 
 	functiondata FunctionAdd::evaluate(const functionlist& input) const {
 		return std::accumulate(begin(input), end(input), functiondata{ 0 });
@@ -32,7 +35,7 @@ namespace graphlib { namespace graph { namespace function {
 	// FunctionConstant
 	
 	FunctionConstant::FunctionConstant(funcexample) :_value(functiondata{0.0}) {
-		FunctionBuilder::registerFunction("CONSTANT", this);
+		FunctionBuilder::registerFunction(FunctionConstant::NAME, this);
 	}
 	FunctionConstant::FunctionConstant(functiondata value_) : _value(value_)
 	{  }
@@ -45,7 +48,7 @@ namespace graphlib { namespace graph { namespace function {
 
 	//FunctionDivide
 	FunctionDivide::FunctionDivide(funcexample){ 
-		FunctionBuilder::registerFunction("DIVIDE", this); 
+		FunctionBuilder::registerFunction(FunctionDivide::NAME, this); 
 	}
 	functiondata FunctionDivide::evaluate(const functionlist& input) const {
 		return input[0] / input[1];
@@ -56,7 +59,7 @@ namespace graphlib { namespace graph { namespace function {
 
 	//FunctionInput
 	FunctionInput::FunctionInput(funcexample){
-		FunctionBuilder::registerFunction("INPUT", this);
+		FunctionBuilder::registerFunction(FunctionInput::NAME, this);
 	}
 	FunctionInput::FunctionInput(functiondata value_) : _value(value_)
 	{  }
@@ -70,20 +73,20 @@ namespace graphlib { namespace graph { namespace function {
 		_value = value_;
 	}
 
-	//FunctionSubtract
-	FunctionSubtract::FunctionSubtract(funcexample){
-		FunctionBuilder::registerFunction("SUBTRACT", this);
+	//FunctionOpposite
+	FunctionOpposite::FunctionOpposite(funcexample){
+		FunctionBuilder::registerFunction(FunctionOpposite::NAME, this);
 	}
-	functiondata FunctionSubtract::evaluate(const functionlist& input) const {
+	functiondata FunctionOpposite::evaluate(const functionlist& input) const {
 		return input[0] - input[1];
 	}
-	functionptr FunctionSubtract::clone(functiondata) const {
-		return std::move(std::make_unique<FunctionSubtract>());
+	functionptr FunctionOpposite::clone(functiondata) const {
+		return std::move(std::make_unique<FunctionOpposite>());
 	}
 
 	//FunctionMultiply
 	FunctionMultiply::FunctionMultiply(funcexample){
-		FunctionBuilder::registerFunction("MULTIPLY", this);
+		FunctionBuilder::registerFunction(FunctionMultiply::NAME, this);
 	}
 	functiondata FunctionMultiply::evaluate(const functionlist& input) const {
 		return std::accumulate(begin(input), end(input), functiondata{ 1.0 }, std::multiplies<functiondata>());

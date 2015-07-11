@@ -23,6 +23,7 @@ namespace graphlib { namespace graph { namespace function {
 		// evaluates the function
 		virtual functiondata evaluate(const functionlist& input) const = 0;
 		virtual functionptr clone(functiondata) const = 0;
+		virtual std::string name() const = 0;
 		virtual void value(functiondata) {}
 		virtual ~Function() {}
 		static void init();
@@ -32,15 +33,16 @@ namespace graphlib { namespace graph { namespace function {
 	public:
 		FunctionAdd() = default;
 		FunctionAdd(funcexample);
-		FunctionAdd(std::string);
 		FunctionAdd(const FunctionAdd&) = delete;
 		FunctionAdd(const FunctionAdd&&) = delete;
 		FunctionAdd& operator=(const FunctionAdd&) = delete;
 		FunctionAdd& operator=(const FunctionAdd&&) = delete;
+		virtual std::string name() const override { return FunctionAdd::NAME; }
 		virtual functiondata evaluate(const functionlist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
 	private:
 		static FunctionAdd example;
+		static const std::string NAME;
 	};
 
 	class FunctionConstant : public Function {
@@ -51,13 +53,16 @@ namespace graphlib { namespace graph { namespace function {
 		FunctionConstant(const FunctionConstant&&) = delete;
 		FunctionConstant& operator=(const FunctionConstant&) = delete;
 		FunctionConstant& operator=(const FunctionConstant&&) = delete;
+		virtual std::string name() const override { return FunctionConstant::NAME; }
 		virtual functiondata evaluate(const functionlist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
 	private:
 		static FunctionConstant example;
+		static const std::string NAME;
 		const functiondata _value;
 	};
 
+	// deprecated - will be replaced by FunctionReciprocal
 	class FunctionDivide : public Function {
 	public:
 		FunctionDivide() = default;
@@ -66,10 +71,12 @@ namespace graphlib { namespace graph { namespace function {
 		FunctionDivide(const FunctionDivide&&) = delete;
 		FunctionDivide& operator=(const FunctionDivide&) = delete;
 		FunctionDivide& operator=(const FunctionDivide&&) = delete;
+		virtual std::string name() const override { return ""; }
 		virtual functiondata evaluate(const functionlist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
 	private:
 		static FunctionDivide example;
+		static const std::string NAME;
 	};
 
 	class FunctionInput : public Function {
@@ -80,26 +87,31 @@ namespace graphlib { namespace graph { namespace function {
 		FunctionInput(const FunctionInput&&) = delete;
 		FunctionInput& operator=(const FunctionInput&) = delete;
 		FunctionInput& operator=(const FunctionInput&&) = delete;
+		virtual std::string name() const override { return FunctionInput::NAME; }
 		void value(functiondata value_) override;
 		virtual functiondata evaluate(const functionlist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
 	private:
 		functiondata _value;
 		static FunctionInput example;
+		static const std::string NAME;
 	};
 
-	class FunctionSubtract : public Function {
+	// deprecated - will be replaced by FunctionOpposite
+	class FunctionOpposite : public Function {
 	public:
-		FunctionSubtract() = default;
-		FunctionSubtract(funcexample);
-		FunctionSubtract(const FunctionSubtract&) = delete;
-		FunctionSubtract(const FunctionSubtract&&) = delete;
-		FunctionSubtract& operator=(const FunctionSubtract&) = delete;
-		FunctionSubtract& operator=(const FunctionSubtract&&) = delete;
+		FunctionOpposite() = default;
+		FunctionOpposite(funcexample);
+		FunctionOpposite(const FunctionOpposite&) = delete;
+		FunctionOpposite(const FunctionOpposite&&) = delete;
+		FunctionOpposite& operator=(const FunctionOpposite&) = delete;
+		FunctionOpposite& operator=(const FunctionOpposite&&) = delete;
+		virtual std::string name() const override { return FunctionOpposite::NAME; }
 		virtual functiondata evaluate(const functionlist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
 	private:
-		static FunctionSubtract example;
+		static FunctionOpposite example;
+		static const std::string NAME;
 	};
 
 	class FunctionMultiply : public Function {
@@ -110,10 +122,12 @@ namespace graphlib { namespace graph { namespace function {
 		FunctionMultiply(const FunctionMultiply&&) = delete;
 		FunctionMultiply& operator=(const FunctionMultiply&) = delete;
 		FunctionMultiply& operator=(const FunctionMultiply&&) = delete;
+		virtual std::string name() const override { return FunctionMultiply::NAME; }
 		virtual functiondata evaluate(const functionlist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
 	private:
 		static FunctionMultiply example;
+		static const std::string NAME;
 	};
 }}}
 
