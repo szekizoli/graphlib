@@ -40,9 +40,10 @@ namespace graphlib { namespace graph { namespace function {
 		virtual std::string name() const override { return FunctionAdd::NAME; }
 		virtual functiondata evaluate(const functionlist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
+
+		static const std::string NAME;
 	private:
 		static FunctionAdd example;
-		static const std::string NAME;
 	};
 
 	class FunctionConstant : public Function {
@@ -63,21 +64,21 @@ namespace graphlib { namespace graph { namespace function {
 		const functiondata _value;
 	};
 
-	// deprecated - will be replaced by FunctionReciprocal
-	class FunctionDivide : public Function {
+	class FunctionReciprocal : public Function {
 	public:
-		FunctionDivide() = default;
-		FunctionDivide(funcexample);
-		FunctionDivide(const FunctionDivide&) = delete;
-		FunctionDivide(const FunctionDivide&&) = delete;
-		FunctionDivide& operator=(const FunctionDivide&) = delete;
-		FunctionDivide& operator=(const FunctionDivide&&) = delete;
-		virtual std::string name() const override { return ""; }
+		FunctionReciprocal() = default;
+		FunctionReciprocal(funcexample);
+		FunctionReciprocal(const FunctionReciprocal&) = delete;
+		FunctionReciprocal(const FunctionReciprocal&&) = delete;
+		FunctionReciprocal& operator=(const FunctionReciprocal&) = delete;
+		FunctionReciprocal& operator=(const FunctionReciprocal&&) = delete;
+		virtual std::string name() const override { return FunctionReciprocal::NAME; }
 		virtual functiondata evaluate(const functionlist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
-	private:
-		static FunctionDivide example;
+
 		static const std::string NAME;
+	private:
+		static FunctionReciprocal example;
 	};
 
 	class FunctionInput : public Function {
@@ -127,9 +128,10 @@ namespace graphlib { namespace graph { namespace function {
 		virtual std::string name() const override { return FunctionMultiply::NAME; }
 		virtual functiondata evaluate(const functionlist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
+
+		static const std::string NAME;
 	private:
 		static FunctionMultiply example;
-		static const std::string NAME;
 	};
 }}}
 

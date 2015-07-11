@@ -19,7 +19,7 @@ namespace GraphLibraryTest
 
 		TEST_METHOD(TestBuildFunctionAdd)
 		{ CREATE_MEMORY_SNAPSHOT{
-			FunctionBuilder fb("ADD");
+			FunctionBuilder fb(FunctionAdd::NAME);
 			auto function = fb.build();
 			Assert::IsNotNull(function.get(), L"Built add function is null.", LINE_INFO());
 			auto result = function->evaluate({ });
@@ -54,7 +54,7 @@ namespace GraphLibraryTest
 
 		TEST_METHOD(TestBuildFunctionConstant)
 		{ CREATE_MEMORY_SNAPSHOT{
-			FunctionBuilder fb("CONSTANT");
+			FunctionBuilder fb(FunctionConstant::NAME);
 			auto function = fb.build(2.0);
 			Assert::IsNotNull(function.get(), L"Built constant function is null.", LINE_INFO());
 			auto result = function->evaluate({});
@@ -73,9 +73,9 @@ namespace GraphLibraryTest
 			Assert::AreEqual(result, 2.0, L"Result doesn't match", LINE_INFO());
 		} ASSERT_MEMORY_SNAPSHOT }
 
-		TEST_METHOD(TestBuildFunctionDivide)
+		TEST_METHOD(TestBuildFunctionReciprocal)
 		{ CREATE_MEMORY_SNAPSHOT{
-			FunctionBuilder fb("DIVIDE");
+			FunctionBuilder fb(FunctionReciprocal::NAME);
 			auto function = fb.build();
 			Assert::IsNotNull(function.get(), L"Built divide function is null.", LINE_INFO());
 			auto result = function->evaluate({ 1, 2 });
@@ -92,7 +92,7 @@ namespace GraphLibraryTest
 
 		TEST_METHOD(TestBuildFunctionInput)
 		{ CREATE_MEMORY_SNAPSHOT{
-			FunctionBuilder fb("INPUT");
+			FunctionBuilder fb(FunctionInput::NAME);
 			auto function = fb.build(2.0);
 			Assert::IsNotNull(function.get(), L"Built input function is null.", LINE_INFO());
 			auto result = function->evaluate({});
@@ -113,7 +113,7 @@ namespace GraphLibraryTest
 
 		TEST_METHOD(TestBuildFunctionMultiply)
 		{ CREATE_MEMORY_SNAPSHOT{
-			FunctionBuilder fb("MULTIPLY");
+			FunctionBuilder fb(FunctionMultiply::NAME);
 			auto function = fb.build();
 			Assert::IsNotNull(function.get(), L"Built add function is null.", LINE_INFO());
 			auto result = function->evaluate({ });
@@ -140,7 +140,7 @@ namespace GraphLibraryTest
 
 		TEST_METHOD(TestBuildFunctionOpposite)
 		{ CREATE_MEMORY_SNAPSHOT{
-			FunctionBuilder fb("OPPOSITE");
+			FunctionBuilder fb(FunctionOpposite::NAME);
 			auto function = fb.build();
 			Assert::IsNotNull(function.get(), L"Built divide function is null.", LINE_INFO());
 			auto result = function->evaluate({ 1, 2 });
