@@ -56,9 +56,10 @@ namespace graphlib { namespace graph { namespace function {
 		virtual std::string name() const override { return FunctionConstant::NAME; }
 		virtual functiondata evaluate(const functionlist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
+	
+		static const std::string NAME;
 	private:
 		static FunctionConstant example;
-		static const std::string NAME;
 		const functiondata _value;
 	};
 
@@ -91,13 +92,13 @@ namespace graphlib { namespace graph { namespace function {
 		void value(functiondata value_) override;
 		virtual functiondata evaluate(const functionlist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
+	
+		static const std::string NAME;
 	private:
 		functiondata _value;
 		static FunctionInput example;
-		static const std::string NAME;
 	};
 
-	// deprecated - will be replaced by FunctionOpposite
 	class FunctionOpposite : public Function {
 	public:
 		FunctionOpposite() = default;
@@ -109,9 +110,10 @@ namespace graphlib { namespace graph { namespace function {
 		virtual std::string name() const override { return FunctionOpposite::NAME; }
 		virtual functiondata evaluate(const functionlist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
+	
+		static const std::string NAME;
 	private:
 		static FunctionOpposite example;
-		static const std::string NAME;
 	};
 
 	class FunctionMultiply : public Function {

@@ -79,12 +79,14 @@
     <ClInclude Include="graph\function\FunctionBuilder.h" />
     <ClInclude Include="graph\function\FunctionDescriptor.h" />
     <ClInclude Include="graph\Graph.h" />
+    <ClInclude Include="graph\GraphBuilder.h" />
     <ClInclude Include="graph\Node.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="graph\function\Function.cpp" />
     <ClCompile Include="graph\function\FunctionBuilder.cpp" />
+    <ClCompile Include="graph\GraphBuilder.cpp" />
     <ClCompile Include="graph\Node.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

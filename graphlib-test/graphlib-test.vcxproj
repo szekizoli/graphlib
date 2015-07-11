@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FunctionBuilderTest.cpp" />
+    <ClCompile Include="GraphBuilderTest.cpp" />
     <ClCompile Include="GraphTest.cpp" />
     <ClCompile Include="NodeTest.cpp" />
     <ClCompile Include="stdafx.cpp">

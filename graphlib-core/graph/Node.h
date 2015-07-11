@@ -63,10 +63,21 @@ namespace graphlib { namespace graph {
 			// id
 		};
 
-		using GraphId = unsigned;
+		using NodeId = unsigned;
 		using Label = std::wstring;
 		using Func = Function;
 		using FuncPtr = std::unique_ptr < Function > ;
+
+		/*class Label {
+		public:
+			Label() {}
+			Label(std::wstring label_) : _label(label_) {}
+			operator std::wstring() { return _label; }
+			std::wstring wstr() { return _label; }
+			friend std::wstring operator+(const char * prefix, const Label&);
+		private:
+			std::wstring _label;
+		};*/
 
 		class Node final
 		{
@@ -74,14 +85,15 @@ namespace graphlib { namespace graph {
 		public:
 			using nodeptr = const Node*;
 			Node();
-			Node(GraphId id_, Label label_, FuncPtr&& func_, NodeDescriptor descriptor_);
-			Node(const Node& other);
+			Node(NodeId id_, Label label_, FuncPtr&& func_);
+			Node(NodeId id_, Label label_, FuncPtr&& func_, NodeDescriptor descriptor_);
+			Node(const Node& other) = delete;
 			Node(Node&& other);
-			Node& operator=(const Node& other);
+			Node& operator=(const Node& other) = delete;
 			Node& operator=(Node&& other);
 			~Node() = default;
 
-			GraphId id()                          const { return _id; }
+			NodeId id()                           const { return _id; }
 			Label label()                         const { return _label; }
 			const Func& function()                const { return *_function.get(); }
 			const NodeDescriptor& descriptor()    const { return _descriptor; }
@@ -91,9 +103,9 @@ namespace graphlib { namespace graph {
 			nodeptr successor(std::size_t i)      const { return _successors[i]; }
 			size_t predecessorSize()              const { return _predecessors.size(); }
 			size_t successorSize()                const { return _successors.size(); }
-
+			friend void make_edge(Node& tail, Node& head);
 		private:
-			GraphId _id;
+			NodeId _id;
 			Label _label;
 			NodeDescriptor _descriptor;
 			FuncPtr _function;
@@ -101,6 +113,7 @@ namespace graphlib { namespace graph {
 			vector<nodeptr> _successors;
 
 			friend class GraphBuilder;
+			friend class NodeTest;
 			void addPredecessor(nodeptr);
 			void addSuccessor(nodeptr);
 		};

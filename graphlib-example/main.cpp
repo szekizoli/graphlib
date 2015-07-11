@@ -7,7 +7,8 @@ using namespace graphlib::graph;
 using namespace graphlib::graph::function;
 
 int main() {
-
-	Graph g{ vector < Node > (1) };
+	vector<Node> nodes;
+	nodes.emplace_back(Node{});
+	Graph g(std::move(nodes));
 	return 0;
 }

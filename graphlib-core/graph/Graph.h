@@ -29,7 +29,7 @@ namespace graphlib { namespace graph {
 		// move assignment operator
 		Graph& operator=(Graph&& other);
 		// descturctor;
-		~Graph() {}
+		~Graph() = default;
 
 		// gets the # of nodes
 		size_t order() const;
@@ -37,7 +37,7 @@ namespace graphlib { namespace graph {
 		size_t size() const;
 
 		// returns the list of nodes
-		const NodeList& nodes() const;
+		const NodeList& nodes() const { return _nodes; }
 
 		// finds and returns the vector of  input nodes
 		const NodePtrList find_input_nodes() const;

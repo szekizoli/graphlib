@@ -5,27 +5,20 @@
 namespace graphlib { namespace graph {
 	Node::Node() {}
 
-	Node::Node(GraphId id_, Label label_, functionptr&& func_, NodeDescriptor descriptor_)
-		: _id(id_), _label(label_), _function(std::move(func_)), _descriptor(descriptor_)
+	Node::Node(NodeId id_, Label label_, functionptr&& func_)
+		: _id(id_), _label(label_), _function(std::move(func_))
 	{
 	}
 
-	/*Node::Node(const Node& other) :
-		_id(other._id), _label(other._label), _descriptor(other._descriptor)
+	Node::Node(NodeId id_, Label label_, functionptr&& func_, NodeDescriptor descriptor_)
+		: _id(id_), _label(label_), _function(std::move(func_)), _descriptor(descriptor_)
 	{
-		std::cout << "Node copy constructor called" << std::endl;
-	}*/
+	}
 
 	Node::Node(Node&& other) :
 		_id(other._id), _label(other._label), _function(std::move(other._function)), _descriptor(other._descriptor)
 	{
 	}
-
-	/*Node& Node::operator=(const Node& other)
-	{
-		std::cout << "Node copy function called" << std::endl;
-		return *this;
-	}*/
 
 	Node& Node::operator=(Node&& other)
 	{
@@ -43,5 +36,10 @@ namespace graphlib { namespace graph {
 
 	void Node::addSuccessor(NodePtr successor) {
 		this->_successors.push_back(successor);
+	}
+
+	void make_edge(Node& tail, Node& head) {
+		tail.addSuccessor(&head);
+		head.addPredecessor(&tail);
 	}
 }}

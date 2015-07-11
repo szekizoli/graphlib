@@ -1,6 +1,7 @@
 #ifndef GRAPHLIB_GRAPH_GRAPHBUILDER_H 
 #define GRAPHLIB_GRAPH_GRAPHBUILDER_H
 
+#include <map>
 #include <memory>
 #include <string>
 #include <vector>
@@ -12,13 +13,15 @@ namespace graphlib { namespace graph {
 
 	class GraphBuilder {
 	public:
-		GraphId addNode(Label _label, std::string functionName);
-		void addEdge(GraphId from, GraphId to);
-		void addEdge(Label from, Label to);
-		GraphId resolveNode(Label _label);
+		NodeId addNode(Label _label, std::string functionName, functiondata value_ = 0.0);
+		bool addEdge(NodeId from, NodeId to);
+		bool addEdge(Label from, Label to);
+		bool resolveNode(Label _label, NodeId& _id);
 		Graph build();
 	private:
-
+		vector<Node> _nodes;
+		std::map<Label, NodeId> _ids;
+		void doAddEdge(NodeId from, NodeId to);
 	};
 
 }}
