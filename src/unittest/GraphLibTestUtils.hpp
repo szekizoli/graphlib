@@ -6,10 +6,10 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 
-#include "CppUnitTest.h"
+#include "gtest/gtest.h"
 
-
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+#include "graph\Graph.h"
+#include "graph\GraphBuilder.h"
 
 // only do memory leak check in debug mode
 #ifdef _DEBUG
@@ -27,12 +27,20 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 #define ASSERT_MEMORY_SNAPSHOT _CrtMemCheckpoint(&s2); \
 			int leaked = _CrtMemDifference(&s3, &s1, &s2); \
-			Assert::IsTrue(leaked == 0, L"Memory leak!", LINE_INFO());
+			EXPECT_EQ(0, leaked) << "Memory leak!";
 #else
-	#define MEMORY_LEAK_CHECK(code) code
-	#define CREATE_MEMORY_SNAPSHOT
-	#define ASSERT_MEMORY_SNAPSHOT
+#define MEMORY_LEAK_CHECK(code) code
+#define CREATE_MEMORY_SNAPSHOT
+#define ASSERT_MEMORY_SNAPSHOT
 #endif
+
+namespace GraphLibraryTest
+{
+	//using graphlib::graph::Graph;
+
+	//Graph createSmallGraph() {}
+
+}
 
 #endif // GRAPHLIB_TEST_UTILS_HPP
 

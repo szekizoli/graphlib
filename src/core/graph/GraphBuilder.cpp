@@ -6,11 +6,18 @@
 #include "function\FunctionBuilder.h"
 
 namespace graphlib { namespace graph {
-	NodeId GraphBuilder::addNode(Label _label, std::string functionName, functiondata value_) {
+	NodeId GraphBuilder::addNode(Label label_, std::string functionName, functiondata value_) {
 		NodeId id{ this->_nodes.size() };
 		auto func = FunctionBuilder(functionName).build(value_);
-		this->_nodes.emplace_back(Node(id, _label, std::move(func), NodeDescriptor{}));
-		this->_ids[_label] = id;
+		this->_nodes.emplace_back(Node(id, label_, std::move(func), NodeDescriptor{}));
+		this->_ids[label_] = id;
+		return id;
+	}
+
+	NodeId GraphBuilder::addNode(Label label_, functionptr&& function_) {
+		NodeId id{ this->_nodes.size() };
+		this->_nodes.emplace_back(Node(id, label_, std::move(function_), NodeDescriptor{}));
+		this->_ids[label_] = id;
 		return id;
 	}
 

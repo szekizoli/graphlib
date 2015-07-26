@@ -3,6 +3,7 @@
 *.lo
 *.o
 *.obj
+*.ilk
 
 # Precompiled Headers
 *.gch
@@ -30,3 +31,7 @@
 # VS files
 *.sdf
 *.opensdf
+*.sln
+*.suo
+*.filters
+*.vcxproj
