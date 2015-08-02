@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-#include "function\Function.h"
+#include "graph/function/Function.h"
 
 namespace graphlib { namespace graph {
 		using std::weak_ptr;

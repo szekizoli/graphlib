@@ -1,4 +1,4 @@
-#include "Algorithms.h"
+#include "graph/Algorithms.h"
 
 namespace graphlib { namespace graph { namespace algorithms {
 

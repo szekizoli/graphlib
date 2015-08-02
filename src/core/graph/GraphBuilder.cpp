@@ -1,9 +1,9 @@
-#include "GraphBuilder.h"
+#include "graph/GraphBuilder.h"
 
 #include <sstream>
 #include <stdexcept>
 
-#include "function\FunctionBuilder.h"
+#include "graph/function/FunctionBuilder.h"
 
 namespace graphlib { namespace graph {
 	NodeId GraphBuilder::addNode(Label label_, std::string functionName, functiondata value_) {

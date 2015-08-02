@@ -1,4 +1,4 @@
-#include "Graph.h"
+#include "graph/Graph.h"
 
 #include <numeric>
 

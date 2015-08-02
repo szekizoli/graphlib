@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 
-#include "Node.h"
+#include "graph/Node.h"
 
 namespace graphlib { namespace graph {
 	class Graph;

@@ -1,4 +1,4 @@
-#include "Node.h"
+#include "graph/Node.h"
 
 #include <iostream>
 

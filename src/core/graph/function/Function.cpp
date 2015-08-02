@@ -1,7 +1,7 @@
-#include "Function.h"
+#include "graph/function/Function.h"
 
 #include <numeric>
-#include "FunctionBuilder.h"
+#include "graph/function/FunctionBuilder.h"
 
 namespace graphlib { namespace graph { namespace function {
 	void Function::init() {}

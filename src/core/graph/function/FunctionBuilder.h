@@ -5,8 +5,8 @@
 #include <string>
 #include <map>
 
-#include "Function.h"
-#include "FunctionDescriptor.h"
+#include "graph/function/Function.h"
+#include "graph/function/FunctionDescriptor.h"
 
 namespace graphlib { namespace graph { namespace function {
 

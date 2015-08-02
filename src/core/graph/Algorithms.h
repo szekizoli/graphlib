@@ -3,8 +3,9 @@
 
 #include <algorithm>
 #include <vector>
-#include "Graph.h"
-#include "Node.h"
+
+#include "graph/Graph.h"
+#include "graph/Node.h"
 
 namespace graphlib { namespace graph { namespace algorithms {
 
