@@ -2,15 +2,18 @@ solution "GraphLib"
     configurations  { "Debug", "Release" }
     startproject    "GraphLib-unittest"
 
+    location "build"
+
 project "GraphLib-core"
     kind      "StaticLib"
     language  "C++"
-    targetdir "bin/%{cfg.buildcfg}"
+    targetdir "build/bin/%{cfg.buildcfg}"
 
-    files { "../src/core/**.h", 
-            "../src/core**.cpp" }
-    removefiles { "../src/core/graph/iterator/*" }
+    files { "src/core/**.h", 
+            "src/core/**.cpp" }
+    removefiles { "src/core/graph/iterator/*" }
 
+    includedirs { "src/core" }
     filter "configurations:Debug"
     	defines {"DEBUG"}
     	flags {"Symbols"}
@@ -22,13 +25,13 @@ project "GraphLib-core"
 project "GraphLib-example"
     kind      "ConsoleApp"
     language  "C++"
-    targetdir "bin/%{cfg.buildcfg}"
+    targetdir "build/bin/%{cfg.buildcfg}"
 
-    files { "../src/example/**.h", 
-            "../src/example/**.cpp" }
+    files { "src/example/**.h", 
+            "src/example/**.cpp" }
 
     links {"GraphLib-core"}
-    includedirs { "../src/core" }
+    includedirs { "src/core" }
 
     filter "configurations:Debug"
         defines {"DEBUG"}
@@ -41,13 +44,13 @@ project "GraphLib-example"
 project "GoogleTest"
     kind      "StaticLib"
     language  "C++"
-    targetdir "bin/%{cfg.buildcfg}"
+    targetdir "build/bin/%{cfg.buildcfg}"
 
-    files { "../3rd/gtest-1.7.0/src/gtest_main.cc", 
-            "../3rd/gtest-1.7.0/src/gtest-all.cc" }
+    files { "3rd/gtest-1.7.0/src/gtest_main.cc", 
+            "3rd/gtest-1.7.0/src/gtest-all.cc" }
 
-    libdirs { "../3rd/" }
-    includedirs {"../3rd/gtest-1.7.0","../3rd/gtest-1.7.0/include"}
+    libdirs { "3rd/" }
+    includedirs {"3rd/gtest-1.7.0", "3rd/gtest-1.7.0/include"}
 
     filter "configurations:Debug"
         defines {"DEBUG"}
@@ -60,14 +63,14 @@ project "GoogleTest"
 project "GraphLib-unittest"
     kind      "ConsoleApp"
     language  "C++"
-    targetdir "bin/%{cfg.buildcfg}"
+    targetdir "build/bin/%{cfg.buildcfg}"
 
-    files { "../src/unittest/**.h", 
-            "../src/unittest/**.cpp" }
+    files { "src/unittest/**.h", 
+            "src/unittest/**.cpp" }
 
     links {"GraphLib-core", "GoogleTest"}
-    libdirs { "../3rd/" }
-    includedirs {"../3rd/gtest-1.7.0","../3rd/gtest-1.7.0/include", "../src/core" }
+    libdirs { "3rd/" }
+    includedirs {"3rd/gtest-1.7.0", "3rd/gtest-1.7.0/include", "src/core" }
     filter "configurations:Debug"
         defines {"DEBUG"}
         flags {"Symbols"}

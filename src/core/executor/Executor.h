@@ -2,8 +2,8 @@
 #define GRAPHLIB_EXECUTOR_EXECUTOR
 
 #include <map>
-#include "../graph/Graph.h"
-#include "../graph/Node.h"
+#include "graph/Graph.h"
+#include "graph/Node.h"
 
 
 namespace graphlib { namespace executor {
