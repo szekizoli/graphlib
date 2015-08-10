@@ -44,16 +44,23 @@ namespace graphlib { namespace graph { namespace algorithms {
 	std::vector<const Node/*Type*/*> topologicalSort(const Graph/*Type*/ &graph) {
 		std::vector<const Node/*Type*/*> result;
 		const auto& nodes = graph.nodes();
-		vector<unsigned> incomingEdges; // by node
+		vector<unsigned> incomingEdges(nodes.size()); // by node
 		std::transform(begin(nodes), end(nodes), incomingEdges.begin(), [](const Node& n) {return n.predecessorSize(); });
-		for (unsigned i = 0; i < incomingEdges.size(); ++i) {
-			if (incomingEdges[i] == 0) {
-				result.push_back(&nodes[i]);
-				// iterate over the successors and decrement their incoming edges
+		int counter = 1;
+		while (counter > 0) {
+			counter = 0;
+			for (unsigned id = 0; id < incomingEdges.size(); ++id) {
+				if (incomingEdges[id] == 0) {
+					result.push_back(&nodes[id]);
+					// iterate over the successors and decrement their incoming edges
+					for (const auto& n : nodes[id].successors()) {
+						--incomingEdges[n->id()];
+						++counter;
+					}
+					incomingEdges[id] = UINT32_MAX;
+				}
 			}
 		}
-
-
 
 		return result;
 	}

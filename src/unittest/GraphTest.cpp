@@ -1,8 +1,8 @@
-
 #include <iostream>
 #include <vector>
 
 #include "gtest/gtest.h"
+#include "GraphTestHelper.h"
 
 #include "graph\function\Function.h"
 #include "graph\Graph.h"
@@ -55,5 +55,25 @@ namespace GraphLibraryTest
 		Graph moved_constructed(std::move(moved_graph));
 		EXPECT_EQ(2, moved_constructed.order()) << "Graph order count doesn't match.";
 		EXPECT_EQ(1, moved_constructed.size()) << "Graph size count doesn't match.";
+	}
+
+	TEST(graphTest, testInputNodes)
+	{
+		auto graph = createTestGraph();
+		auto input = graph.find_input_nodes();
+		EXPECT_EQ(1, input.size());
+		auto node = input[0];
+		EXPECT_EQ(Label{ L"const" }, node->label());
+		EXPECT_EQ(FunctionConstant::NAME, node->function().name());
+	}
+
+	TEST(graphTest, testOutputNodes)
+	{
+		auto graph = createTestGraph();
+		auto output = graph.find_output_nodes();
+		EXPECT_EQ(1, output.size());
+		auto node = output[0];
+		EXPECT_EQ(Label{ L"oppos" }, node->label());
+		EXPECT_EQ(FunctionOpposite::NAME, node->function().name());
 	}
 }

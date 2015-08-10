@@ -7,7 +7,7 @@
 #include "graph\GraphBuilder.h"
 #include "graph\Node.h"
 
-#include "GraphLibTestUtils.hpp"
+#include "GraphLibTestUtils.h"
 
 namespace GraphLibraryTest
 {

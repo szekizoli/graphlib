@@ -8,6 +8,7 @@
 
 #include "gtest/gtest.h"
 
+#include "graph\function\Function.h"
 #include "graph\Graph.h"
 #include "graph\GraphBuilder.h"
 
@@ -33,14 +34,6 @@
 #define CREATE_MEMORY_SNAPSHOT
 #define ASSERT_MEMORY_SNAPSHOT
 #endif
-
-namespace GraphLibraryTest
-{
-	//using graphlib::graph::Graph;
-
-	//Graph createSmallGraph() {}
-
-}
 
 #endif // GRAPHLIB_TEST_UTILS_HPP
 

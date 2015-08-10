@@ -1,4 +1,4 @@
-#include "GraphLibTestUtils.hpp"
+#include "GraphLibTestUtils.h"
 
 #include <iostream>
 
