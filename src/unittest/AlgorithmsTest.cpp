@@ -51,7 +51,7 @@ namespace GraphLibraryTest
 		EXPECT_EQ(g.order(), count.size());
 		for (int i = 0; i < g.order(); ++i) 
 		{
-			EXPECT_EQ(g.nodes()[i].predecessorSize(), count[i]);
+			EXPECT_EQ(g[i].predecessorSize(), count[i]);
 		}
 	} ASSERT_MEMORY_SNAPSHOT }
 
@@ -62,7 +62,16 @@ namespace GraphLibraryTest
 
 			unsigned expected_size = 0;
 			auto order = algorithms::topologicalSort<Graph, Node>(g);
-			EXPECT_EQ(17, order.size());			
+			EXPECT_EQ(17, order.size());
+			auto count = algorithms::predecessorCount(g);
+			for (const auto& n : order)
+			{
+				EXPECT_EQ(0, count[n->id()]);// the predecessors left for this is 0.
+				// decrement number of predecessors for successors
+				for (const auto& s : n->successors()) {
+					--count[s->id()];
+				}
+			}
 		} ASSERT_MEMORY_SNAPSHOT
 	}
 }
