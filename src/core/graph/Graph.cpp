@@ -49,4 +49,9 @@ namespace graphlib { namespace graph {
 		}
 		return std::move(output_nodes);
 	}
+
+	const Node& Graph::operator[](const NodeId idx) const
+	{
+		return _nodes[idx];
+	}
 }}

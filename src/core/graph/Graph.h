@@ -51,6 +51,10 @@ namespace graphlib { namespace graph {
 		// complexity: O(n)
 		const NodePtrList find_output_nodes() const;
 
+		// returns the node with the given id
+		// doesn't perform range check
+		const Node& operator[](const NodeId idx) const;
+
 		// utility to iterate over the graph using BFS
 		struct bfs_iterator {
 			bfs_iterator(const Graph& g_);
