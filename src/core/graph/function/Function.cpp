@@ -12,6 +12,7 @@ namespace graphlib { namespace graph { namespace function {
 	const std::string FunctionInput::NAME{ "INPUT" };
 	const std::string FunctionOpposite::NAME{ "OPPOSITE" };
 	const std::string FunctionMultiply::NAME{ "MULTIPLY" };
+	const std::string FunctionSquareRoot::NAME{ "SQUAREROOT" };
 
 	FunctionAdd FunctionAdd::example(funcexample{});
 	FunctionConstant FunctionConstant::example{ funcexample{} };
@@ -19,6 +20,7 @@ namespace graphlib { namespace graph { namespace function {
 	FunctionInput FunctionInput::example{ funcexample{} };
 	FunctionOpposite FunctionOpposite::example{ funcexample{} };
 	FunctionMultiply FunctionMultiply::example{ funcexample{} };
+	FunctionSquareRoot FunctionSquareRoot::example{ funcexample{} };
 
 	//FunctionAdd
 	FunctionAdd::FunctionAdd(funcexample)
@@ -93,5 +95,16 @@ namespace graphlib { namespace graph { namespace function {
 	}
 	functionptr FunctionMultiply::clone(functiondata) const {
 		return std::move(std::make_unique<FunctionMultiply>());
+	}
+
+	//FunctionSquareRoot
+	FunctionSquareRoot::FunctionSquareRoot(funcexample){
+		FunctionBuilder::registerFunction(FunctionSquareRoot::NAME, this);
+	}
+	functiondata FunctionSquareRoot::evaluate(const functionlist& input) const {
+		return sqrt(input[0]);
+	}
+	functionptr FunctionSquareRoot::clone(functiondata) const {
+		return std::move(std::make_unique<FunctionReciprocal>());
 	}
 }}}

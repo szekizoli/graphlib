@@ -133,6 +133,23 @@ namespace graphlib { namespace graph { namespace function {
 	private:
 		static FunctionMultiply example;
 	};
+
+	class FunctionSquareRoot : public Function {
+	public:
+		FunctionSquareRoot() = default;
+		FunctionSquareRoot(funcexample);
+		FunctionSquareRoot(const FunctionSquareRoot&) = delete;
+		FunctionSquareRoot(const FunctionSquareRoot&&) = delete;
+		FunctionSquareRoot& operator=(const FunctionSquareRoot&) = delete;
+		FunctionSquareRoot& operator=(const FunctionSquareRoot&&) = delete;
+		virtual std::string name() const override { return FunctionSquareRoot::NAME; }
+		virtual functiondata evaluate(const functionlist& input) const override;
+		virtual functionptr clone(functiondata _value = 0.0) const override;
+
+		static const std::string NAME;
+	private:
+		static FunctionSquareRoot example;
+	};
 }}}
 
 #endif

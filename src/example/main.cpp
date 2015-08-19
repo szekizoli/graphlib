@@ -1,4 +1,6 @@
-#include "../core/graph/Algorithms.h"
+#include <iostream>
+
+#include "graph/Algorithms.h"
 #include "../core/graph/function/Function.h"
 #include "../core/graph/function/FunctionBuilder.h"
 #include "../core/graph/Node.h"
@@ -34,6 +36,9 @@ int main() {
 
 	Graph g = gb.build();
 
-	auto re2 = topologicalSort/*<Graph, Node>*/(g);
+	auto re2 = topologicalSort<Graph, Node>(g);
+	for (const auto node : re2) {
+		std::wcout << node->label() << std::endl;
+	}
 	return 0;
 }

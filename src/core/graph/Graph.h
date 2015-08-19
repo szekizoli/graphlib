@@ -12,8 +12,13 @@ namespace graphlib { namespace graph {
 	class DFSIterator;
 	typedef std::unique_ptr<Graph> GraphPtr;
 
+	class Predecessors {
+	public:
+	private:
+	};
+
 	// Models an executable graph
-	class Graph
+	class Graph final
 	{
 	public:
 		// constructs an empty graph
@@ -40,8 +45,10 @@ namespace graphlib { namespace graph {
 		const NodeList& nodes() const { return _nodes; }
 
 		// finds and returns the vector of  input nodes
+		// complexity: O(n)
 		const NodePtrList find_input_nodes() const;
 		// finds and returns the vector of output nodes
+		// complexity: O(n)
 		const NodePtrList find_output_nodes() const;
 
 		// utility to iterate over the graph using BFS

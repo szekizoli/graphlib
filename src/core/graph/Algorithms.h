@@ -33,6 +33,15 @@ namespace graphlib { namespace graph { namespace algorithms {
 	//template <class GraphType, class NodeType>
 	//vector<vector<NodeType*>> partialTopologicalSortFromBottom(const GraphType &graph);
 
+
+	// Creates a vector with the number of dependencies of each node
+	vector<size_t> predecessorCount(const Graph& graph) {
+		vector<size_t> count(graph.order());
+		const auto& nodes = graph.nodes();
+		std::transform(begin(nodes), end(nodes), begin(count), [](const Node& n) { return n.predecessorSize(); });
+		return std::move(count);
+	}
+
 	///
 	/// Creates a topological order of the input graph.
 	///
@@ -40,9 +49,9 @@ namespace graphlib { namespace graph { namespace algorithms {
 	///
 	/// @param graph The input graph.
 	/// @return Vector of the graph's node in topological order.
-	//template <typename GraphType, typename NodeType>
-	std::vector<const Node/*Type*/*> topologicalSort(const Graph/*Type*/ &graph) {
-		std::vector<const Node/*Type*/*> result;
+	template <typename GraphType, typename NodeType>
+	std::vector<const NodeType*> topologicalSort(const GraphType &graph) {
+		std::vector<const NodeType*> result;
 		const auto& nodes = graph.nodes();
 		vector<unsigned> incomingEdges(nodes.size()); // by node
 		std::transform(begin(nodes), end(nodes), incomingEdges.begin(), [](const Node& n) {return n.predecessorSize(); });
