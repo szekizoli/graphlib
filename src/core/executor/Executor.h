@@ -1,12 +1,25 @@
 #ifndef GRAPHLIB_EXECUTOR_EXECUTOR
 #define GRAPHLIB_EXECUTOR_EXECUTOR
 
+#include <vector>
 #include <map>
 #include "graph/Graph.h"
 #include "graph/Node.h"
 
 
 namespace graphlib { namespace executor {
+
+	class ExecutionResult {
+	public:
+		ExecutionResult(const std::vector<graph::functiondata>& r);
+		ExecutionResult(std::vector<graph::functiondata>&& r);
+		ExecutionResult(const ExecutionResult& other);
+		ExecutionResult(ExecutionResult&& other);
+		const graph::functiondata& operator[](const size_t idx) const;
+	private:
+		std::vector<graph::functiondata> result;
+
+	};
 
 	class Executor {
 	public:
@@ -25,6 +38,9 @@ namespace graphlib { namespace executor {
 	public:
 		virtual std::map<graph::Label, graph::functiondata> execute(graph::Graph) override;
 	};
+
+	using It = std::vector<graph::NodePtr>::const_iterator;
+	ExecutionResult execute(It first, It last);
 
 }}
 

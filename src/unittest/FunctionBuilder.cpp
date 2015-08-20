@@ -10,34 +10,32 @@ namespace GraphLibraryTest
 	using namespace graphlib::graph::function;
 
 	TEST(functionBuilderTests, TestBuildFunctionAdd)
-	{
-		CREATE_MEMORY_SNAPSHOT{
-			FunctionBuilder fb(FunctionAdd::NAME);
-			auto function = fb.build();
-			ASSERT_TRUE(function.get() != nullptr) << "Built add function is null.";
-			EXPECT_EQ(FunctionAdd::NAME, function->name()) << "Name of function doesn't match.";
-			auto result = function->evaluate({});
-			EXPECT_EQ(result, 0.0) << "Result doesn't match";
-			result = function->evaluate({ 1 });
-			EXPECT_EQ(result, 1.0) << "Result doesn't match";
-			result = function->evaluate({ 1, 2 });
-			EXPECT_EQ(result, 3.0) << "Result doesn't match";
-			result = function->evaluate({ 1, 2, 3 });
-			EXPECT_EQ(result, 6.0) << "Result doesn't match";
-			result = function->evaluate({ 1, 2, 3, 4 });
-			EXPECT_EQ(result, 10.0) << "Result doesn't match";
-			// setting value, has no effect for 
-			function->value(3.0);
-			result = function->evaluate({ 1 });
-			EXPECT_EQ(result, 1.0) << "Result doesn't match";
-			result = function->evaluate({ 1, 2 });
-			EXPECT_EQ(result, 3.0) << "Result doesn't match";
-			result = function->evaluate({ 1, 2, 3 });
-			EXPECT_EQ(result, 6.0) << "Result doesn't match";
-			result = function->evaluate({ 1, 2, 3, 4 });
-			EXPECT_EQ(result, 10.0) << "Result doesn't match";
-		} ASSERT_MEMORY_SNAPSHOT
-	}
+	{ CREATE_MEMORY_SNAPSHOT{
+		FunctionBuilder fb(FunctionAdd::NAME);
+		auto function = fb.build();
+		ASSERT_TRUE(function.get() != nullptr) << "Built add function is null.";
+		EXPECT_EQ(FunctionAdd::NAME, function->name()) << "Name of function doesn't match.";
+		auto result = function->evaluate({});
+		EXPECT_EQ(result, 0.0) << "Result doesn't match";
+		result = function->evaluate({ 1 });
+		EXPECT_EQ(result, 1.0) << "Result doesn't match";
+		result = function->evaluate({ 1, 2 });
+		EXPECT_EQ(result, 3.0) << "Result doesn't match";
+		result = function->evaluate({ 1, 2, 3 });
+		EXPECT_EQ(result, 6.0) << "Result doesn't match";
+		result = function->evaluate({ 1, 2, 3, 4 });
+		EXPECT_EQ(result, 10.0) << "Result doesn't match";
+		// setting value, has no effect for 
+		function->value(3.0);
+		result = function->evaluate({ 1 });
+		EXPECT_EQ(result, 1.0) << "Result doesn't match";
+		result = function->evaluate({ 1, 2 });
+		EXPECT_EQ(result, 3.0) << "Result doesn't match";
+		result = function->evaluate({ 1, 2, 3 });
+		EXPECT_EQ(result, 6.0) << "Result doesn't match";
+		result = function->evaluate({ 1, 2, 3, 4 });
+		EXPECT_EQ(result, 10.0) << "Result doesn't match";
+	} ASSERT_MEMORY_SNAPSHOT }
 
 	TEST(functionBuilderTests, TestBuildDescriptorFunctionAdd)
 	{
@@ -80,15 +78,15 @@ namespace GraphLibraryTest
 			auto function = fb.build();
 			ASSERT_TRUE(function.get() != nullptr) << "Built divide function is null.";
 			EXPECT_EQ(FunctionReciprocal::NAME, function->name()) << "Name of function doesn't match.";
-			auto result = function->evaluate({ 1, 2 });
+			auto result = function->evaluate({ 2 });
 			EXPECT_EQ(result, 0.5) << "Result doesn't match";
-			result = function->evaluate({ 1, 2, 3 });
+			result = function->evaluate({ 2, 3 });
 			EXPECT_EQ(result, 0.5) << "Result doesn't match";
-			result = function->evaluate({ 1, 2, 3, 4 });
+			result = function->evaluate({ 2, 3, 4 });
 			EXPECT_EQ(result, 0.5) << "Result doesn't match";
 			// setting value, has no effect for 
 			function->value(3.0);
-			result = function->evaluate({ 1, 2 });
+			result = function->evaluate({ 2 });
 			EXPECT_EQ(result, 0.5) << "Result doesn't match";
 		} ASSERT_MEMORY_SNAPSHOT
 	}

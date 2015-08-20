@@ -14,14 +14,14 @@ namespace graphlib { namespace graph { namespace function {
 	}
 
 	using functiondata = double;
-	using functionlist = vector < functiondata >;
+	using datalist = vector < functiondata >;
 	class Function;
 	using functionptr = std::unique_ptr < Function > ;
 
 	class Function {
 	public:
 		// evaluates the function
-		virtual functiondata evaluate(const functionlist& input) const = 0;
+		virtual functiondata evaluate(const datalist& input) const = 0;
 		virtual functionptr clone(functiondata) const = 0;
 		virtual std::string name() const = 0;
 		virtual void value(functiondata) {}
@@ -38,7 +38,7 @@ namespace graphlib { namespace graph { namespace function {
 		FunctionAdd& operator=(const FunctionAdd&) = delete;
 		FunctionAdd& operator=(const FunctionAdd&&) = delete;
 		virtual std::string name() const override { return FunctionAdd::NAME; }
-		virtual functiondata evaluate(const functionlist& input) const override;
+		virtual functiondata evaluate(const datalist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
 
 		static const std::string NAME;
@@ -55,7 +55,7 @@ namespace graphlib { namespace graph { namespace function {
 		FunctionConstant& operator=(const FunctionConstant&) = delete;
 		FunctionConstant& operator=(const FunctionConstant&&) = delete;
 		virtual std::string name() const override { return FunctionConstant::NAME; }
-		virtual functiondata evaluate(const functionlist& input) const override;
+		virtual functiondata evaluate(const datalist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
 	
 		static const std::string NAME;
@@ -73,7 +73,7 @@ namespace graphlib { namespace graph { namespace function {
 		FunctionReciprocal& operator=(const FunctionReciprocal&) = delete;
 		FunctionReciprocal& operator=(const FunctionReciprocal&&) = delete;
 		virtual std::string name() const override { return FunctionReciprocal::NAME; }
-		virtual functiondata evaluate(const functionlist& input) const override;
+		virtual functiondata evaluate(const datalist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
 
 		static const std::string NAME;
@@ -91,7 +91,7 @@ namespace graphlib { namespace graph { namespace function {
 		FunctionInput& operator=(const FunctionInput&&) = delete;
 		virtual std::string name() const override { return FunctionInput::NAME; }
 		void value(functiondata value_) override;
-		virtual functiondata evaluate(const functionlist& input) const override;
+		virtual functiondata evaluate(const datalist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
 	
 		static const std::string NAME;
@@ -109,7 +109,7 @@ namespace graphlib { namespace graph { namespace function {
 		FunctionOpposite& operator=(const FunctionOpposite&) = delete;
 		FunctionOpposite& operator=(const FunctionOpposite&&) = delete;
 		virtual std::string name() const override { return FunctionOpposite::NAME; }
-		virtual functiondata evaluate(const functionlist& input) const override;
+		virtual functiondata evaluate(const datalist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
 	
 		static const std::string NAME;
@@ -126,7 +126,7 @@ namespace graphlib { namespace graph { namespace function {
 		FunctionMultiply& operator=(const FunctionMultiply&) = delete;
 		FunctionMultiply& operator=(const FunctionMultiply&&) = delete;
 		virtual std::string name() const override { return FunctionMultiply::NAME; }
-		virtual functiondata evaluate(const functionlist& input) const override;
+		virtual functiondata evaluate(const datalist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
 
 		static const std::string NAME;
@@ -143,7 +143,7 @@ namespace graphlib { namespace graph { namespace function {
 		FunctionSquareRoot& operator=(const FunctionSquareRoot&) = delete;
 		FunctionSquareRoot& operator=(const FunctionSquareRoot&&) = delete;
 		virtual std::string name() const override { return FunctionSquareRoot::NAME; }
-		virtual functiondata evaluate(const functionlist& input) const override;
+		virtual functiondata evaluate(const datalist& input) const override;
 		virtual functionptr clone(functiondata _value = 0.0) const override;
 
 		static const std::string NAME;

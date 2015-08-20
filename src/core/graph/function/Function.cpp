@@ -26,7 +26,7 @@ namespace graphlib { namespace graph { namespace function {
 	FunctionAdd::FunctionAdd(funcexample)
 		{ FunctionBuilder::registerFunction(FunctionAdd::NAME, this); }
 
-	functiondata FunctionAdd::evaluate(const functionlist& input) const {
+	functiondata FunctionAdd::evaluate(const datalist& input) const {
 		return std::accumulate(begin(input), end(input), functiondata{ 0 });
 	}
 
@@ -41,7 +41,7 @@ namespace graphlib { namespace graph { namespace function {
 	}
 	FunctionConstant::FunctionConstant(functiondata value_) : _value(value_)
 	{  }
-	functiondata FunctionConstant::evaluate(const functionlist&) const {
+	functiondata FunctionConstant::evaluate(const datalist&) const {
 		return _value;
 	}
 	functionptr FunctionConstant::clone(functiondata value_) const {
@@ -52,8 +52,8 @@ namespace graphlib { namespace graph { namespace function {
 	FunctionReciprocal::FunctionReciprocal(funcexample){ 
 		FunctionBuilder::registerFunction(FunctionReciprocal::NAME, this); 
 	}
-	functiondata FunctionReciprocal::evaluate(const functionlist& input) const {
-		return input[0] / input[1];
+	functiondata FunctionReciprocal::evaluate(const datalist& input) const {
+		return 1 / input[0];
 	}
 	functionptr FunctionReciprocal::clone(functiondata) const {
 		return std::move(std::make_unique<FunctionReciprocal>());
@@ -65,7 +65,7 @@ namespace graphlib { namespace graph { namespace function {
 	}
 	FunctionInput::FunctionInput(functiondata value_) : _value(value_)
 	{  }
-	functiondata FunctionInput::evaluate(const functionlist&) const {
+	functiondata FunctionInput::evaluate(const datalist&) const {
 		return this->_value;
 	}
 	functionptr FunctionInput::clone(functiondata value_) const {
@@ -79,8 +79,8 @@ namespace graphlib { namespace graph { namespace function {
 	FunctionOpposite::FunctionOpposite(funcexample){
 		FunctionBuilder::registerFunction(FunctionOpposite::NAME, this);
 	}
-	functiondata FunctionOpposite::evaluate(const functionlist& input) const {
-		return input[0] - input[1];
+	functiondata FunctionOpposite::evaluate(const datalist& input) const {
+		return 0 - input[0];
 	}
 	functionptr FunctionOpposite::clone(functiondata) const {
 		return std::move(std::make_unique<FunctionOpposite>());
@@ -90,7 +90,7 @@ namespace graphlib { namespace graph { namespace function {
 	FunctionMultiply::FunctionMultiply(funcexample){
 		FunctionBuilder::registerFunction(FunctionMultiply::NAME, this);
 	}
-	functiondata FunctionMultiply::evaluate(const functionlist& input) const {
+	functiondata FunctionMultiply::evaluate(const datalist& input) const {
 		return std::accumulate(begin(input), end(input), functiondata{ 1.0 }, std::multiplies<functiondata>());
 	}
 	functionptr FunctionMultiply::clone(functiondata) const {
@@ -101,7 +101,7 @@ namespace graphlib { namespace graph { namespace function {
 	FunctionSquareRoot::FunctionSquareRoot(funcexample){
 		FunctionBuilder::registerFunction(FunctionSquareRoot::NAME, this);
 	}
-	functiondata FunctionSquareRoot::evaluate(const functionlist& input) const {
+	functiondata FunctionSquareRoot::evaluate(const datalist& input) const {
 		return sqrt(input[0]);
 	}
 	functionptr FunctionSquareRoot::clone(functiondata) const {

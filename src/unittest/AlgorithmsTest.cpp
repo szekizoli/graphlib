@@ -31,14 +31,14 @@ namespace GraphLibraryTest
 	TEST(algorithmsTests, TestCreatePredecessorCountWithEmptyGraph)
 	{ CREATE_MEMORY_SNAPSHOT{
 		Graph g = GraphBuilder{}.build();
-		auto count = algorithms::predecessorCount(g);
+		auto count = algorithms::predecessorCount<Graph, Node>(g);
 		EXPECT_EQ(g.size(), count.size());
 	} ASSERT_MEMORY_SNAPSHOT }
 
 	TEST(algorithmsTests, TestCreatePredecessorCountWithTestGraph)
 	{ CREATE_MEMORY_SNAPSHOT{
 		Graph g = createTestGraph();
-		auto count = algorithms::predecessorCount(g);
+		auto count = algorithms::predecessorCount<Graph, Node>(g);
 		EXPECT_EQ(g.order(), count.size());
 		EXPECT_EQ(0, count[0]);
 		EXPECT_EQ(1, count[1]);
@@ -47,7 +47,7 @@ namespace GraphLibraryTest
 	TEST(algorithmsTests, TestCreatePredecessorCountWithQuadraticGraph)
 	{ CREATE_MEMORY_SNAPSHOT{
 		Graph g = createQuadraticGraph();
-		auto count = algorithms::predecessorCount(g);
+		auto count = algorithms::predecessorCount<Graph, Node>(g);
 		EXPECT_EQ(g.order(), count.size());
 		for (int i = 0; i < g.order(); ++i) 
 		{
@@ -63,7 +63,7 @@ namespace GraphLibraryTest
 			unsigned expected_size = 0;
 			auto order = algorithms::topologicalSort<Graph, Node>(g);
 			EXPECT_EQ(17, order.size());
-			auto count = algorithms::predecessorCount(g);
+			auto count = algorithms::predecessorCount<Graph, Node>(g);
 			for (const auto& n : order)
 			{
 				EXPECT_EQ(0, count[n->id()]);// the predecessors left for this is 0.

@@ -35,10 +35,11 @@ namespace graphlib { namespace graph { namespace algorithms {
 
 
 	// Creates a vector with the number of dependencies of each node
-	vector<size_t> predecessorCount(const Graph& graph) {
+	template <typename GraphType, typename NodeType>
+	vector<size_t> predecessorCount(const GraphType& graph) {
 		vector<size_t> count(graph.order());
 		const auto& nodes = graph.nodes();
-		std::transform(begin(nodes), end(nodes), begin(count), [](const Node& n) { return n.predecessorSize(); });
+		std::transform(begin(nodes), end(nodes), begin(count), [](const NodeType& n) { return n.predecessorSize(); });
 		return std::move(count);
 	}
 
