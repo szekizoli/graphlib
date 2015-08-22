@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <map>
+#include <stack>
 #include "graph/Graph.h"
 #include "graph/Node.h"
 
@@ -41,6 +42,7 @@ namespace graphlib { namespace executor {
 
 	using It = std::vector<graph::NodePtr>::const_iterator;
 	ExecutionResult execute(It first, It last);
+	ExecutionResult stack_execute(It first, It last);
 
 }}
 

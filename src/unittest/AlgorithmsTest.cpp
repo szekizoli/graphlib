@@ -44,6 +44,24 @@ namespace GraphLibraryTest
 		EXPECT_EQ(1, count[1]);
 	} ASSERT_MEMORY_SNAPSHOT }
 
+	TEST(algorithmsTests, TestCountWithTestGraph)
+	{ CREATE_MEMORY_SNAPSHOT{
+		Graph g = createTestGraph();
+		auto count = algorithms::count<Graph, Node>(g, [](const Node& n) {return n.predecessorSize(); });
+		EXPECT_EQ(g.order(), count.size());
+		EXPECT_EQ(0, count[0]);
+		EXPECT_EQ(1, count[1]);
+	} ASSERT_MEMORY_SNAPSHOT }
+
+	TEST(algorithmsTests, TestCountWithTestGraphSuccessor)
+	{ CREATE_MEMORY_SNAPSHOT{
+		Graph g = createTestGraph();
+		auto count = algorithms::count<Graph, Node>(g, [](const Node& n) {return n.successorSize(); });
+		EXPECT_EQ(g.order(), count.size());
+		EXPECT_EQ(1, count[0]);
+		EXPECT_EQ(0, count[1]);
+	} ASSERT_MEMORY_SNAPSHOT }
+
 	TEST(algorithmsTests, TestCreatePredecessorCountWithQuadraticGraph)
 	{ CREATE_MEMORY_SNAPSHOT{
 		Graph g = createQuadraticGraph();
@@ -55,23 +73,31 @@ namespace GraphLibraryTest
 		}
 	} ASSERT_MEMORY_SNAPSHOT }
 
-	TEST(algorithmsTests, CreateTopologicalSortQuadraticGraph)
-	{
-		CREATE_MEMORY_SNAPSHOT{
-			Graph g = createQuadraticGraph();
+	TEST(algorithmsTests, TestStackSort)
+	{ CREATE_MEMORY_SNAPSHOT{
+		Graph g = createMultiOutputGraph();
+		auto order = algorithms::stackSort<Graph, Node>(g);
+		EXPECT_EQ(g.order(), order.size());
+		for (const auto& n : order) {
+			std::wcout << n->label() << std::endl;
+		}
+	} ASSERT_MEMORY_SNAPSHOT }
 
-			unsigned expected_size = 0;
-			auto order = algorithms::topologicalSort<Graph, Node>(g);
-			EXPECT_EQ(17, order.size());
-			auto count = algorithms::predecessorCount<Graph, Node>(g);
-			for (const auto& n : order)
-			{
-				EXPECT_EQ(0, count[n->id()]);// the predecessors left for this is 0.
-				// decrement number of predecessors for successors
-				for (const auto& s : n->successors()) {
-					--count[s->id()];
-				}
+	TEST(algorithmsTests, CreateTopologicalSortQuadraticGraph)
+	{ CREATE_MEMORY_SNAPSHOT{
+		Graph g = createQuadraticGraph();
+
+		unsigned expected_size = 0;
+		auto order = algorithms::topologicalSort<Graph, Node>(g);
+		EXPECT_EQ(17, order.size());
+		auto count = algorithms::predecessorCount<Graph, Node>(g);
+		for (const auto& n : order)
+		{
+			EXPECT_EQ(0, count[n->id()]);// the predecessors left for this is 0.
+			// decrement number of predecessors for successors
+			for (const auto& s : n->successors()) {
+				--count[s->id()];
 			}
-		} ASSERT_MEMORY_SNAPSHOT
-	}
+		}
+	} ASSERT_MEMORY_SNAPSHOT }
 }

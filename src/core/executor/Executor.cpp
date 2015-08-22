@@ -1,6 +1,7 @@
 #include "executor/Executor.h"
 
 #include <vector>
+#include <stack>
 #include "graph\algorithms.h"
 
 namespace graphlib { namespace executor {
@@ -44,9 +45,9 @@ namespace graphlib { namespace executor {
 	}
 
 	ExecutionResult execute(It first, It last) {
-		std::vector<graph::functiondata> mem(last - first);
+		std::vector<graph::functiondata> mem(last - first, NAN);
+		graph::function::datalist data;
 		for (It it = first; it != last; ++it) {
-			graph::function::datalist data;
 			// collecting parameters for function call
 			for (const auto& nptr : (*it)->predecessors()) {
 				data.push_back(mem[nptr->id()]);
@@ -55,6 +56,28 @@ namespace graphlib { namespace executor {
 			// evaluate
 			auto value = (*it)->function().evaluate(data);
 			mem[(*it)->id()] = value;
+			data.clear();
+		}
+		return std::move(ExecutionResult{ std::move(mem) });
+	}
+
+	ExecutionResult stack_execute(It first, It last) {
+		std::vector<graph::functiondata> mem(last - first, NAN);
+		std::stack<graph::functiondata> datastack;
+		for (It it = first; it != last; ++it) {
+			graph::function::datalist data;
+			// collecting parameters for function call
+			for (size_t i = 0; i < (*it)->predecessorSize(); ++i) {
+				data.push_back(datastack.top());
+				datastack.pop();
+			}
+
+			// evaluate
+			auto value = (*it)->function().evaluate(data);
+			mem[(*it)->id()] = value;
+			for (size_t i = 0; i < (*it)->successorSize(); ++i) {
+				datastack.push(value);
+			}
 		}
 		return std::move(ExecutionResult{ std::move(mem) });
 	}
