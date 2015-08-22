@@ -22,6 +22,13 @@ namespace graphlib { namespace executor {
 
 	};
 
+	class Instruction {
+	public:
+
+	private:
+
+	};
+
 	class Executor {
 	public:
 		virtual std::map<graph::Label, graph::functiondata> execute(graph::Graph) = 0; // const

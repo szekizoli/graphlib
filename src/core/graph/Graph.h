@@ -55,6 +55,15 @@ namespace graphlib { namespace graph {
 		// doesn't perform range check
 		const Node& operator[](const NodeId idx) const;
 
+		typedef NodeList::iterator iterator;
+		typedef NodeList::const_iterator const_iterator;
+		
+		// iteratos for the nodes
+		iterator begin()             { return _nodes.begin(); }
+		const_iterator begin() const { return _nodes.cbegin(); }
+		iterator end()               { return _nodes.end(); }
+		const_iterator end() const   { return _nodes.cend(); }
+
 		// utility to iterate over the graph using BFS
 		struct bfs_iterator {
 			bfs_iterator(const Graph& g_);

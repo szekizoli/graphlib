@@ -26,7 +26,7 @@ namespace graphlib { namespace graph {
 	}
 
 	size_t Graph::size() const {
-		return std::accumulate(begin(_nodes), end(_nodes), size_t{ 0 },
+		return std::accumulate(begin(), end(), size_t{ 0 },
 			[](size_t init, const Node& n){ return init + n.successorSize(); });
 	}
 
