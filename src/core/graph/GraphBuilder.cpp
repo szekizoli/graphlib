@@ -6,41 +6,58 @@
 #include "graph/function/FunctionBuilder.h"
 
 namespace graphlib { namespace graph {
-	NodeId GraphBuilder::addNode(Label label_, std::string functionName, functiondata value_) {
+
+	NodeBuilder::NodeBuilder() {}
+
+	NodeBuilder::NodeBuilder(NodeId id_, GraphBuilder* builder_)
+		: _id(id_), _builder(builder_) {
+	}
+
+	NodeId NodeBuilder::id() const {
+		return _id;
+	}
+
+	GraphBuilder* NodeBuilder::graph_builder() const {
+		return _builder;
+	}
+
+	NodeBuilder GraphBuilder::addNode(Label label_, std::string functionName, functiondata value_) {
 		NodeId id{ this->_nodes.size() };
+		NodeBuilder node{ id, this };
 		auto func = FunctionBuilder(functionName).build(value_);
 		this->_nodes.emplace_back(Node(id, label_, std::move(func), NodeDescriptor{}));
 		this->_ids[label_] = id;
-		return id;
+		return node;
 	}
 
-	NodeId GraphBuilder::addNode(Label label_, functionptr&& function_) {
+	NodeBuilder GraphBuilder::addNode(Label label_, functionptr&& function_) {
 		NodeId id{ this->_nodes.size() };
+		NodeBuilder node{ id, this };
 		this->_nodes.emplace_back(Node(id, label_, std::move(function_), NodeDescriptor{}));
 		this->_ids[label_] = id;
-		return id;
+		return node;
 	}
 
-	bool GraphBuilder::addEdge(NodeId from, NodeId to) {
+	bool GraphBuilder::addEdge(NodeBuilder from, NodeBuilder to) {
 		auto size = this->_nodes.size();
-		if (from >= size || to >= size) {
+		if (from.id() >= size || to.id() >= size) {
 			return false;
 		}
-		this->doAddEdge(from, to);
+		this->doAddEdge(from.id(), to.id());
 		return true;
 	}
 
 	bool GraphBuilder::addEdge(Label label_from, Label label_to) {
-		NodeId from;
-		if (!resolveNode(label_from, from)) {
+		NodeBuilder from;
+		if (!resolve_node(label_from, from)) {
 			return false;
 		}
-		NodeId to;
-		if (!resolveNode(label_to, to)) {
+		NodeBuilder to;
+		if (!resolve_node(label_to, to)) {
 			return false;
 		}
 
-		this->doAddEdge(from, to);
+		this->doAddEdge(from.id(), to.id());
 		return true;
 	}
 
@@ -51,13 +68,13 @@ namespace graphlib { namespace graph {
 		n2->addPredecessor(n1);
 	}
 
-	bool GraphBuilder::resolveNode(Label _label, NodeId& _id) {
-		auto it = this->_ids.find(_label);
+	bool GraphBuilder::resolve_node(Label label, NodeBuilder& id) {
+		auto it = this->_ids.find(label);
 		if (it == this->_ids.end()) {
 			return false;
 		}
 
-		_id = it->second;
+		id._id = it->second;
 		return true;
 	}
 
