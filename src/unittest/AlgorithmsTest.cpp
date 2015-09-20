@@ -67,7 +67,7 @@ namespace GraphLibraryTest
 		Graph g = createQuadraticGraph();
 		auto count = algorithms::predecessorCount<Graph, Node>(g);
 		EXPECT_EQ(g.order(), count.size());
-		for (int i = 0; i < g.order(); ++i) 
+		for (unsigned i = 0; i < g.order(); ++i) 
 		{
 			EXPECT_EQ(g[i].predecessorSize(), count[i]);
 		}

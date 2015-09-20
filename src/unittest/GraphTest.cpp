@@ -80,7 +80,7 @@ namespace GraphLibraryTest
 	TEST(graphTest, testIndexOperatorNodes)
 	{
 		Graph g = createQuadraticGraph();
-		for (int i = 0; i < g.order(); ++i) {
+		for (unsigned i = 0; i < g.order(); ++i) {
 			const Node& n = g[i];
 			EXPECT_EQ(i, n.id());
 			EXPECT_EQ(g.nodes()[i].label(), n.label());

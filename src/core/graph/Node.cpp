@@ -22,11 +22,12 @@ namespace graphlib { namespace graph {
 
 	Node& Node::operator=(Node&& other)
 	{
-		std::swap(this->_id,         other._id);
-		std::swap(this->_label,      other._label);
-		std::swap(this->_function,   other._function);
-		std::swap(this->_descriptor, other._descriptor);
-
+		std::swap(this->_id,           other._id);
+		std::swap(this->_label,        other._label);
+		std::swap(this->_function,     other._function);
+		std::swap(this->_descriptor,   other._descriptor);
+		// successors and predecessors are deliberately not moved
+		// because the pointers have to be updated with each move
 		return *this;
 	}
 
