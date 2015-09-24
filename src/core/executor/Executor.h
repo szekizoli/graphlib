@@ -17,6 +17,7 @@ namespace graphlib { namespace executor {
 		ExecutionResult(const ExecutionResult& other);
 		ExecutionResult(ExecutionResult&& other);
 		const graph::functiondata& operator[](const size_t idx) const;
+		size_t size() const { return result.size(); }
 	private:
 		std::vector<graph::functiondata> result;
 

@@ -105,6 +105,6 @@ namespace graphlib { namespace graph { namespace function {
 		return sqrt(input[0]);
 	}
 	functionptr FunctionSquareRoot::clone(functiondata) const {
-		return std::move(std::make_unique<FunctionReciprocal>());
+		return std::move(std::make_unique<FunctionSquareRoot>());
 	}
 }}}
