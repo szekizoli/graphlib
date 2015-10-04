@@ -39,10 +39,10 @@ namespace GraphLibraryTest
 	TEST(executorTests, TestSimpleExecutorWithOpBuilderAddMul1)
 	{ CREATE_MEMORY_SNAPSHOT{
 		GraphBuilder gb{};
-		auto node_1 = gb.addNode(L"2", FunctionConstant::NAME, 2);
-		auto node_2 = gb.addNode(L"3", FunctionConstant::NAME, 3);
-		auto node_3 = gb.addNode(L"5", FunctionConstant::NAME, 5);
-		auto node_4 = gb.addNode(L"7", FunctionConstant::NAME, 7);
+		auto node_1 = gb.add_node(L"2", FunctionConstant::NAME, 2);
+		auto node_2 = gb.add_node(L"3", FunctionConstant::NAME, 3);
+		auto node_3 = gb.add_node(L"5", FunctionConstant::NAME, 5);
+		auto node_4 = gb.add_node(L"7", FunctionConstant::NAME, 7);
 		auto node_s = node_1 + node_2 * node_3 + node_4;
 		Graph g = gb.build();
 
@@ -55,10 +55,10 @@ namespace GraphLibraryTest
 	TEST(executorTests, TestSimpleExecutorWithOpBuilderAddMul2)
 	{ CREATE_MEMORY_SNAPSHOT{
 		GraphBuilder gb{};
-		auto node_1 = gb.addNode(L"2", FunctionConstant::NAME, 2);
-		auto node_2 = gb.addNode(L"3", FunctionConstant::NAME, 3);
-		auto node_3 = gb.addNode(L"5", FunctionConstant::NAME, 5);
-		auto node_4 = gb.addNode(L"7", FunctionConstant::NAME, 7);
+		auto node_1 = gb.add_node(L"2", FunctionConstant::NAME, 2);
+		auto node_2 = gb.add_node(L"3", FunctionConstant::NAME, 3);
+		auto node_3 = gb.add_node(L"5", FunctionConstant::NAME, 5);
+		auto node_4 = gb.add_node(L"7", FunctionConstant::NAME, 7);
 		auto node_s = node_1 * node_2 + node_3 * node_4;
 		Graph g = gb.build();
 
@@ -77,10 +77,10 @@ namespace GraphLibraryTest
 	TEST(executorTests, TestSimpleExecutorWithOpBuilderAddMul3)
 	{ CREATE_MEMORY_SNAPSHOT{
 		GraphBuilder gb{};
-		auto node_1 = gb.addNode(L"2", FunctionConstant::NAME, 2);
-		auto node_2 = gb.addNode(L"3", FunctionConstant::NAME, 3);
-		auto node_3 = gb.addNode(L"5", FunctionConstant::NAME, 5);
-		auto node_4 = gb.addNode(L"7", FunctionConstant::NAME, 7);
+		auto node_1 = gb.add_node(L"2", FunctionConstant::NAME, 2);
+		auto node_2 = gb.add_node(L"3", FunctionConstant::NAME, 3);
+		auto node_3 = gb.add_node(L"5", FunctionConstant::NAME, 5);
+		auto node_4 = gb.add_node(L"7", FunctionConstant::NAME, 7);
 		auto node_s = (node_1 + node_2) * (node_3 + node_4);
 		Graph g = gb.build();
 

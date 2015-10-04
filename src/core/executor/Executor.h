@@ -7,7 +7,6 @@
 #include "graph/Graph.h"
 #include "graph/Node.h"
 
-
 namespace graphlib { namespace executor {
 
 	class ExecutionResult {
@@ -20,7 +19,6 @@ namespace graphlib { namespace executor {
 		size_t size() const { return result.size(); }
 	private:
 		std::vector<graph::functiondata> result;
-
 	};
 
 	class Instruction {
@@ -35,12 +33,12 @@ namespace graphlib { namespace executor {
 		virtual std::map<graph::Label, graph::functiondata> execute(graph::Graph) = 0; // const
 	};
 
-	template <typename _Executor>
+	template <typename T>
 	class GenericExecutor : public Executor {
 	public:
 		virtual std::map<graph::Label, graph::functiondata> execute(graph::Graph) override;
 	private:
-		_Executor _executor;
+		T _executor;
 	};
 
 	class SimpleExecutor : public Executor {

@@ -46,4 +46,9 @@ namespace graphlib { namespace graph { namespace function {
 		return FunctionDescriptor(_type, _color, _shape);
 	}
 
+	FunctionPtr FunctionBuilder::create(std::string type_, functiondata value_)
+	{
+		return FunctionBuilder{ type_ }.build(value_);
+	}
+
 }}}

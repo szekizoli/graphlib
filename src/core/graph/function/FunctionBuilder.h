@@ -23,6 +23,7 @@ namespace graphlib { namespace graph { namespace function {
 		FunctionBuilder& shape(std::string);
 		FunctionPtr build(functiondata value_ = 0.0);
 		FunctionDescriptor buildDescriptor();
+		static FunctionPtr create(std::string type_, functiondata value_ = 0.0);
 	private:
 		static std::map < std::string, const Function* >& registered();
 		static std::map < std::string, const FunctionDescriptor >& descriptors();

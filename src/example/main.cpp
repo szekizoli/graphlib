@@ -15,11 +15,11 @@ using namespace graphlib::graph::function;
 
 int main() {
 	GraphBuilder gb{};
-	auto node_a = gb.addNode(L"A", FunctionInput::NAME, 1);
-	auto node_b = gb.addNode(L"B", FunctionInput::NAME, 3);
-	auto node_c = gb.addNode(L"C", FunctionInput::NAME, 2);
-	auto node_m4 = gb.addNode(L"(-4)", FunctionConstant::NAME, -4);
-	auto node_2 = gb.addNode(L"2", FunctionConstant::NAME, 2);
+	auto node_a = gb.add_node(L"A", FunctionInput::NAME, 1);
+	auto node_b = gb.add_node(L"B", FunctionInput::NAME, 3);
+	auto node_c = gb.add_node(L"C", FunctionInput::NAME, 2);
+	auto node_m4 = gb.add_node(L"(-4)", FunctionConstant::NAME, -4);
+	auto node_2 = gb.add_node(L"2", FunctionConstant::NAME, 2);
 	auto node_X1 = (-node_b + sqrt(node_b * node_b + node_m4 * node_a * node_c)) / (node_2 * node_a);
 	auto node_X2 = (-node_b - sqrt(node_b * node_b + node_m4 * node_a * node_c)) / (node_2 * node_a);
 

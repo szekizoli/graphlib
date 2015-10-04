@@ -6,17 +6,11 @@
 
 namespace graphlib { namespace executor {
 
-	ExecutionResult::ExecutionResult(const std::vector<graph::functiondata>& r) : result(r) 
-	{
-	}
+	ExecutionResult::ExecutionResult(const std::vector<graph::functiondata>& r) : result(r) {}
 
-	ExecutionResult::ExecutionResult(std::vector<graph::functiondata>&& r) : result(r)
-	{
-	}
+	ExecutionResult::ExecutionResult(std::vector<graph::functiondata>&& r) : result(r) {}
 
-	ExecutionResult::ExecutionResult(const ExecutionResult& other) : result(other.result)
-	{
-	}
+	ExecutionResult::ExecutionResult(const ExecutionResult& other) : result(other.result) {}
 
 	ExecutionResult::ExecutionResult(ExecutionResult&& other)
 	{
@@ -27,8 +21,8 @@ namespace graphlib { namespace executor {
 		return this->result[idx];
 	}
 
-	template <typename _Executor>
-	std::map<graph::Label, graph::functiondata> GenericExecutor<_Executor>::execute(graph::Graph graph_) {
+	template <typename T>
+	std::map<graph::Label, graph::functiondata> GenericExecutor<T>::execute(graph::Graph graph_) {
 		return _executor.execute(graph_);
 	}
 
@@ -58,7 +52,7 @@ namespace graphlib { namespace executor {
 			mem[(*it)->id()] = value;
 			data.clear();
 		}
-		return std::move(ExecutionResult{ std::move(mem) });
+		return std::move(ExecutionResult{ std::move(mem) } );
 	}
 
 	ExecutionResult stack_execute(It first, It last) {
