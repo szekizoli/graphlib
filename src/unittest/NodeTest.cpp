@@ -22,8 +22,8 @@ namespace GraphLibraryTest
 
 	TEST(nodeTest, testNodeWithEdge)
 	{
-		Node n0{ NodeId{ 0 }, L"const", functionptr(new FunctionConstant(1)) };
-		Node n1{ NodeId{ 1 }, L"oppos", functionptr(new FunctionOpposite()) };
+		Node n0{ NodeId{ 0 }, L"const", function_ptr(new FunctionConstant(1)) };
+		Node n1{ NodeId{ 1 }, L"oppos", function_ptr(new FunctionOpposite()) };
 		make_edge(n0, n1);
 		unsigned value_0 = 0;
 		unsigned value_1 = 1;

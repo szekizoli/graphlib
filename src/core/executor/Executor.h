@@ -11,14 +11,14 @@ namespace graphlib { namespace executor {
 
 	class ExecutionResult {
 	public:
-		ExecutionResult(const std::vector<graph::functiondata>& r);
-		ExecutionResult(std::vector<graph::functiondata>&& r);
+		ExecutionResult(const std::vector<graph::Value>& r);
+		ExecutionResult(std::vector<graph::Value>&& r);
 		ExecutionResult(const ExecutionResult& other);
 		ExecutionResult(ExecutionResult&& other);
-		const graph::functiondata& operator[](const size_t idx) const;
+		const graph::Value& operator[](const size_t idx) const;
 		size_t size() const { return result.size(); }
 	private:
-		std::vector<graph::functiondata> result;
+		std::vector<graph::Value> result;
 	};
 
 	class Instruction {
@@ -30,20 +30,20 @@ namespace graphlib { namespace executor {
 
 	class Executor {
 	public:
-		virtual std::map<graph::Label, graph::functiondata> execute(graph::Graph) = 0; // const
+		virtual std::map<graph::Label, graph::Value> execute(graph::Graph) = 0; // const
 	};
 
 	template <typename T>
 	class GenericExecutor : public Executor {
 	public:
-		virtual std::map<graph::Label, graph::functiondata> execute(graph::Graph) override;
+		virtual std::map<graph::Label, graph::Value> execute(graph::Graph) override;
 	private:
 		T _executor;
 	};
 
 	class SimpleExecutor : public Executor {
 	public:
-		virtual std::map<graph::Label, graph::functiondata> execute(graph::Graph) override;
+		virtual std::map<graph::Label, graph::Value> execute(graph::Graph) override;
 	};
 
 	using It = std::vector<graph::NodePtr>::const_iterator;

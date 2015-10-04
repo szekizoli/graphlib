@@ -33,7 +33,7 @@ namespace GraphLibraryTest
 		return std::move(gb.build());
 	}
 
-	Graph createQuadraticGraph(functiondata a, functiondata b, functiondata c) {
+	Graph createQuadraticGraph(Value a, Value b, Value c) {
 		GraphBuilder gb{};
 		auto node_a = gb.add_node(L"A", FunctionInput::NAME, a);
 		auto node_b = gb.add_node(L"B", FunctionInput::NAME, b);

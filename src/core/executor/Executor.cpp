@@ -6,9 +6,9 @@
 
 namespace graphlib { namespace executor {
 
-	ExecutionResult::ExecutionResult(const std::vector<graph::functiondata>& r) : result(r) {}
+	ExecutionResult::ExecutionResult(const std::vector<graph::Value>& r) : result(r) {}
 
-	ExecutionResult::ExecutionResult(std::vector<graph::functiondata>&& r) : result(r) {}
+	ExecutionResult::ExecutionResult(std::vector<graph::Value>&& r) : result(r) {}
 
 	ExecutionResult::ExecutionResult(const ExecutionResult& other) : result(other.result) {}
 
@@ -17,18 +17,18 @@ namespace graphlib { namespace executor {
 		std::swap(result, other.result);
 	}
 
-	const graph::functiondata& ExecutionResult::operator[](const size_t idx) const {
+	const graph::Value& ExecutionResult::operator[](const size_t idx) const {
 		return this->result[idx];
 	}
 
 	template <typename T>
-	std::map<graph::Label, graph::functiondata> GenericExecutor<T>::execute(graph::Graph graph_) {
+	std::map<graph::Label, graph::Value> GenericExecutor<T>::execute(graph::Graph graph_) {
 		return _executor.execute(graph_);
 	}
 
-	std::map<graph::Label, graph::functiondata> SimpleExecutor::execute(graph::Graph) {
-		std::vector<graph::functiondata> memory;
-		std::map<graph::Label, graph::functiondata> result;
+	std::map<graph::Label, graph::Value> SimpleExecutor::execute(graph::Graph) {
+		std::vector<graph::Value> memory;
+		std::map<graph::Label, graph::Value> result;
 		// create order using topological sort
 		// based on the order execute nodes
 		  // assemble values for the execution
@@ -39,35 +39,35 @@ namespace graphlib { namespace executor {
 	}
 
 	ExecutionResult execute(It first, It last) {
-		std::vector<graph::functiondata> mem(last - first, NAN);
-		graph::function::datalist data;
+		std::vector<graph::Value> mem(last - first, NAN);
+		std::vector<graph::Value> values;
 		for (It it = first; it != last; ++it) {
 			// collecting parameters for function call
 			for (const auto& nptr : (*it)->predecessors()) {
-				data.push_back(mem[nptr->id()]);
+				values.push_back(mem[nptr->id()]);
 			}
 
 			// evaluate
-			auto value = (*it)->function().evaluate(data);
+			auto value = (*it)->function().evaluate(values);
 			mem[(*it)->id()] = value;
-			data.clear();
+			values.clear();
 		}
 		return std::move(ExecutionResult{ std::move(mem) } );
 	}
 
 	ExecutionResult stack_execute(It first, It last) {
-		std::vector<graph::functiondata> mem(last - first, NAN);
-		std::stack<graph::functiondata> datastack;
+		std::vector<graph::Value> mem(last - first, NAN);
+		std::stack<graph::Value> datastack;
 		for (It it = first; it != last; ++it) {
-			graph::function::datalist data;
+			std::vector<graph::Value> values;
 			// collecting parameters for function call
 			for (size_t i = 0; i < (*it)->predecessorSize(); ++i) {
-				data.push_back(datastack.top());
+				values.push_back(datastack.top());
 				datastack.pop();
 			}
 
 			// evaluate
-			auto value = (*it)->function().evaluate(data);
+			auto value = (*it)->function().evaluate(values);
 			mem[(*it)->id()] = value;
 			for (size_t i = 0; i < (*it)->successorSize(); ++i) {
 				datastack.push(value);

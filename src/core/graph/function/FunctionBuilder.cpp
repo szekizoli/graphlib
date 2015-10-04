@@ -27,7 +27,7 @@ namespace graphlib { namespace graph { namespace function {
 		FunctionBuilder::descriptors().insert(std::make_pair(_type, _descriptor));
 	}
 
-	std::unique_ptr<Function> FunctionBuilder::build(functiondata value_) {
+	std::unique_ptr<Function> FunctionBuilder::build(Value value_) {
 		const auto it = FunctionBuilder::registered().find(_type);
 		return it == FunctionBuilder::registered().end() ? nullptr : (*it).second->clone(value_);
 	}
@@ -46,7 +46,7 @@ namespace graphlib { namespace graph { namespace function {
 		return FunctionDescriptor(_type, _color, _shape);
 	}
 
-	FunctionPtr FunctionBuilder::create(std::string type_, functiondata value_)
+	FunctionPtr FunctionBuilder::create(std::string type_, Value value_)
 	{
 		return FunctionBuilder{ type_ }.build(value_);
 	}

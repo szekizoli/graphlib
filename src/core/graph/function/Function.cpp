@@ -26,25 +26,25 @@ namespace graphlib { namespace graph { namespace function {
 	FunctionAdd::FunctionAdd(funcexample)
 		{ FunctionBuilder::registerFunction(FunctionAdd::NAME, this); }
 
-	functiondata FunctionAdd::evaluate(const datalist& input) const {
-		return std::accumulate(begin(input), end(input), functiondata{ 0 });
+	Value FunctionAdd::evaluate(const vector<Value>& input) const {
+		return std::accumulate(begin(input), end(input), Value{ 0 });
 	}
 
-	functionptr FunctionAdd::clone(functiondata) const {
+	function_ptr FunctionAdd::clone(Value) const {
 		return std::move(std::make_unique<FunctionAdd>());
 	}
 
 	// FunctionConstant
 	
-	FunctionConstant::FunctionConstant(funcexample) :_value(functiondata{0.0}) {
+	FunctionConstant::FunctionConstant(funcexample) :_value(Value{0.0}) {
 		FunctionBuilder::registerFunction(FunctionConstant::NAME, this);
 	}
-	FunctionConstant::FunctionConstant(functiondata value_) : _value(value_)
+	FunctionConstant::FunctionConstant(Value value_) : _value(value_)
 	{  }
-	functiondata FunctionConstant::evaluate(const datalist&) const {
+	Value FunctionConstant::evaluate(const vector<Value>&) const {
 		return _value;
 	}
-	functionptr FunctionConstant::clone(functiondata value_) const {
+	function_ptr FunctionConstant::clone(Value value_) const {
 		return std::move(std::make_unique<FunctionConstant>(value_));
 	}
 
@@ -52,10 +52,10 @@ namespace graphlib { namespace graph { namespace function {
 	FunctionReciprocal::FunctionReciprocal(funcexample){ 
 		FunctionBuilder::registerFunction(FunctionReciprocal::NAME, this); 
 	}
-	functiondata FunctionReciprocal::evaluate(const datalist& input) const {
+	Value FunctionReciprocal::evaluate(const vector<Value>& input) const {
 		return 1 / input[0];
 	}
-	functionptr FunctionReciprocal::clone(functiondata) const {
+	function_ptr FunctionReciprocal::clone(Value) const {
 		return std::move(std::make_unique<FunctionReciprocal>());
 	}
 
@@ -63,15 +63,15 @@ namespace graphlib { namespace graph { namespace function {
 	FunctionInput::FunctionInput(funcexample){
 		FunctionBuilder::registerFunction(FunctionInput::NAME, this);
 	}
-	FunctionInput::FunctionInput(functiondata value_) : _value(value_)
+	FunctionInput::FunctionInput(Value value_) : _value(value_)
 	{  }
-	functiondata FunctionInput::evaluate(const datalist&) const {
+	Value FunctionInput::evaluate(const vector<Value>&) const {
 		return this->_value;
 	}
-	functionptr FunctionInput::clone(functiondata value_) const {
+	function_ptr FunctionInput::clone(Value value_) const {
 		return std::move(std::make_unique<FunctionInput>(value_));
 	}
-	void FunctionInput::value(functiondata value_) {
+	void FunctionInput::value(Value value_) {
 		_value = value_;
 	}
 
@@ -79,10 +79,10 @@ namespace graphlib { namespace graph { namespace function {
 	FunctionOpposite::FunctionOpposite(funcexample){
 		FunctionBuilder::registerFunction(FunctionOpposite::NAME, this);
 	}
-	functiondata FunctionOpposite::evaluate(const datalist& input) const {
+	Value FunctionOpposite::evaluate(const vector<Value>& input) const {
 		return 0 - input[0];
 	}
-	functionptr FunctionOpposite::clone(functiondata) const {
+	function_ptr FunctionOpposite::clone(Value) const {
 		return std::move(std::make_unique<FunctionOpposite>());
 	}
 
@@ -90,10 +90,10 @@ namespace graphlib { namespace graph { namespace function {
 	FunctionMultiply::FunctionMultiply(funcexample){
 		FunctionBuilder::registerFunction(FunctionMultiply::NAME, this);
 	}
-	functiondata FunctionMultiply::evaluate(const datalist& input) const {
-		return std::accumulate(begin(input), end(input), functiondata{ 1.0 }, std::multiplies<functiondata>());
+	Value FunctionMultiply::evaluate(const vector<Value>& input) const {
+		return std::accumulate(begin(input), end(input), Value{ 1.0 }, std::multiplies<Value>());
 	}
-	functionptr FunctionMultiply::clone(functiondata) const {
+	function_ptr FunctionMultiply::clone(Value) const {
 		return std::move(std::make_unique<FunctionMultiply>());
 	}
 
@@ -101,10 +101,10 @@ namespace graphlib { namespace graph { namespace function {
 	FunctionSquareRoot::FunctionSquareRoot(funcexample){
 		FunctionBuilder::registerFunction(FunctionSquareRoot::NAME, this);
 	}
-	functiondata FunctionSquareRoot::evaluate(const datalist& input) const {
+	Value FunctionSquareRoot::evaluate(const vector<Value>& input) const {
 		return sqrt(input[0]);
 	}
-	functionptr FunctionSquareRoot::clone(functiondata) const {
+	function_ptr FunctionSquareRoot::clone(Value) const {
 		return std::move(std::make_unique<FunctionSquareRoot>());
 	}
 }}}

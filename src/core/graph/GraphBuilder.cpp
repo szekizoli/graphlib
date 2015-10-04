@@ -21,7 +21,7 @@ namespace graphlib { namespace graph {
 		x._builder = nullptr;
 	}
 
-	NodeBuilder::NodeBuilder(GraphBuilder* builder_, NodeId id_, Label label_, string function_name_, functiondata value_, NodeDescriptor descriptor_)
+	NodeBuilder::NodeBuilder(GraphBuilder* builder_, NodeId id_, Label label_, string function_name_, function::Value value_, NodeDescriptor descriptor_)
 		: _builder(builder_), _id(id_), label(label_), _function_name(function_name_), _value(value_), _descriptor(descriptor_) {}
 
 	NodeBuilder& NodeBuilder::operator = (NodeBuilder&& other) {
@@ -166,14 +166,14 @@ namespace graphlib { namespace graph {
 		return sqrt_node;
 	}
 
-	NodeReference GraphBuilder::add_node(Label label_, std::string function_name_, functiondata value_) {
+	NodeReference GraphBuilder::add_node(Label label_, std::string function_name_, function::Value value_) {
 		NodeId id{ this->_nodes.size() };
 		this->_nodes.emplace_back(NodeBuilder{ this, id, label_, function_name_, value_, NodeDescriptor{ function_name_ } });
 		this->_ids[label_] = id;
 		return NodeReference{ this, id };
 	}
 
-	//NodeBuilder GraphBuilder::addNode(Label label_, functionptr&& function_) {
+	//NodeBuilder GraphBuilder::addNode(Label label_, function_ptr&& function_) {
 	//	NodeId id{ this->_nodes.size() };
 	//	//NodeBuilder node{ id, this };
 	//	std::string function_name = function_->name();

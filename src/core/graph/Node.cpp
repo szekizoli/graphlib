@@ -5,12 +5,12 @@
 namespace graphlib { namespace graph {
 	Node::Node() {}
 
-	Node::Node(NodeId id_, Label label_, functionptr&& func_)
+	Node::Node(NodeId id_, Label label_, function_ptr&& func_)
 		: _id(id_), _label(label_), _function(std::move(func_))
 	{
 	}
 
-	Node::Node(NodeId id_, Label label_, functionptr&& func_, NodeDescriptor descriptor_)
+	Node::Node(NodeId id_, Label label_, function_ptr&& func_, NodeDescriptor descriptor_)
 		: _id(id_), _label(label_), _function(std::move(func_)), _descriptor(descriptor_)
 	{
 	}

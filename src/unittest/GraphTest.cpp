@@ -40,8 +40,8 @@ namespace GraphLibraryTest
 	TEST(graphTest, testGraphWithTwoNodes)
 	{
 		vector<Node> nodes;
-		nodes.emplace_back(Node{ NodeId{ 0 }, L"const", functionptr(new FunctionConstant(1)) });
-		nodes.emplace_back(Node{ NodeId{ 1 }, L"oppos", functionptr(new FunctionOpposite()) });
+		nodes.emplace_back(Node{ NodeId{ 0 }, L"const", function_ptr(new FunctionConstant(1)) });
+		nodes.emplace_back(Node{ NodeId{ 1 }, L"oppos", function_ptr(new FunctionOpposite()) });
 		make_edge(nodes[0], nodes[1]);
 		Graph g{ std::move(nodes) };
 		EXPECT_EQ(2, g.order()) << "Graph order count doesn't match.";

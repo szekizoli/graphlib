@@ -32,7 +32,7 @@ namespace graphlib { namespace graph {
 	public:
 		Label label;
 
-		NodeBuilder(GraphBuilder* builder_, NodeId id_, Label label_, string function_name_, functiondata value_, NodeDescriptor descriptor_);
+		NodeBuilder(GraphBuilder* builder_, NodeId id_, Label label_, string function_name_, function::Value value_, NodeDescriptor descriptor_);
 		NodeBuilder(const NodeBuilder& other) = default;
 		NodeBuilder(NodeBuilder&& other);
 		NodeBuilder& operator=(const NodeBuilder& other) = default;
@@ -43,19 +43,19 @@ namespace graphlib { namespace graph {
 	private:
 		friend class GraphBuilder;
 		NodeBuilder();
-		NodeId         _id;
-		NodeDescriptor _descriptor;
-		functiondata   _value;
-		string         _function_name;
-		GraphBuilder*  _builder;
+		NodeId          _id;
+		NodeDescriptor  _descriptor;
+		function::Value _value;
+		string          _function_name;
+		GraphBuilder*   _builder;
 	};
 
 	bool validate_node_builders(const NodeBuilder& left, const NodeBuilder& right);
 
 	class GraphBuilder {
 	public:
-		NodeReference add_node(Label label_, std::string functionName_, functiondata value_ = 0.0);
-		NodeReference add_node(Label label_, functionptr&& function_);
+		NodeReference add_node(Label label_, std::string functionName_, function::Value value_ = 0.0);
+		NodeReference add_node(Label label_, function_ptr&& function_);
 		bool add_edge(NodeReference from, NodeReference to);
 		bool add_edge(Label from, Label to);bool resolveNode(Label label, NodeBuilder& id);
 		friend

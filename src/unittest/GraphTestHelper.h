@@ -6,10 +6,10 @@
 
 namespace GraphLibraryTest
 {
-	using graphlib::graph::function::functiondata;
+	using graphlib::graph::function::Value;
 
 	graphlib::graph::Graph createTestGraph();
 	graphlib::graph::Graph createQuadraticGraph();
 	graphlib::graph::Graph createMultiOutputGraph();
-	graphlib::graph::Graph createQuadraticGraph(functiondata a, functiondata b, functiondata c);
+	graphlib::graph::Graph createQuadraticGraph(Value a, Value b, Value c);
 }
