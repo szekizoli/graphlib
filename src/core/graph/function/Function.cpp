@@ -4,7 +4,7 @@
 #include "graph/function/FunctionBuilder.h"
 
 namespace graphlib { namespace graph { namespace function {
-	void Function::init() {}
+	void Function::initialize() {}
 	
 	const std::string FunctionAdd::NAME{ "ADD" };
 	const std::string FunctionConstant::NAME{ "CONSTANT" };
@@ -24,13 +24,17 @@ namespace graphlib { namespace graph { namespace function {
 
 	//FunctionAdd
 	FunctionAdd::FunctionAdd(funcexample)
-		{ FunctionBuilder::registerFunction(FunctionAdd::NAME, this); }
+	{ 
+		FunctionBuilder::registerFunction(FunctionAdd::NAME, this); 
+	}
 
-	Value FunctionAdd::evaluate(const vector<Value>& input) const {
+	Value FunctionAdd::evaluate(const vector<Value>& input) const 
+	{
 		return std::accumulate(begin(input), end(input), Value{ 0 });
 	}
 
-	function_ptr FunctionAdd::clone(Value) const {
+	function_ptr FunctionAdd::clone(Value) const 
+	{
 		return std::move(std::make_unique<FunctionAdd>());
 	}
 
@@ -40,7 +44,6 @@ namespace graphlib { namespace graph { namespace function {
 	}
 
 	// FunctionConstant
-	
 	FunctionConstant::FunctionConstant(funcexample) :_value(Value{0.0}) {
 		FunctionBuilder::registerFunction(FunctionConstant::NAME, this);
 	}

@@ -65,8 +65,6 @@ namespace graphlib { namespace graph {
 
 		using NodeId = unsigned;
 		using Label = std::wstring;
-		using Func = Function;
-		using FuncPtr = std::unique_ptr < Function > ;
 
 		/*class Label {
 		public:
@@ -85,8 +83,8 @@ namespace graphlib { namespace graph {
 		public:
 			using nodeptr = const Node*;
 			Node();
-			Node(NodeId id_, Label label_, FuncPtr&& func_);
-			Node(NodeId id_, Label label_, FuncPtr&& func_, NodeDescriptor descriptor_);
+			Node(NodeId id_, Label label_, function_ptr&& func_);
+			Node(NodeId id_, Label label_, function_ptr&& func_, NodeDescriptor descriptor_);
 			Node(const Node& other) = delete;
 			Node(Node&& other);
 			Node& operator=(const Node& other) = delete;
@@ -95,7 +93,7 @@ namespace graphlib { namespace graph {
 
 			NodeId id()                           const { return _id; }
 			Label label()                         const { return _label; }
-			const Func& function()                const { return *_function.get(); }
+			const Function& function()            const { return *_function.get(); }
 			const NodeDescriptor& descriptor()    const { return _descriptor; }
 			const vector<nodeptr>& predecessors() const { return _predecessors; }
 			const vector<nodeptr>& successors()   const { return _successors; }
@@ -108,7 +106,7 @@ namespace graphlib { namespace graph {
 			NodeId _id;
 			Label _label;
 			NodeDescriptor _descriptor;
-			FuncPtr _function;
+			function_ptr _function;
 			vector<nodeptr> _predecessors;
 			vector<nodeptr> _successors;
 

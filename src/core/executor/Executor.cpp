@@ -2,24 +2,9 @@
 
 #include <vector>
 #include <stack>
-#include "graph\algorithms.h"
+#include "graph/Algorithms.h"
 
 namespace graphlib { namespace executor {
-
-	ExecutionResult::ExecutionResult(const std::vector<graph::Value>& r) : result(r) {}
-
-	ExecutionResult::ExecutionResult(std::vector<graph::Value>&& r) : result(r) {}
-
-	ExecutionResult::ExecutionResult(const ExecutionResult& other) : result(other.result) {}
-
-	ExecutionResult::ExecutionResult(ExecutionResult&& other)
-	{
-		std::swap(result, other.result);
-	}
-
-	const graph::Value& ExecutionResult::operator[](const size_t idx) const {
-		return this->result[idx];
-	}
 
 	template <typename T>
 	std::map<graph::Label, graph::Value> GenericExecutor<T>::execute(graph::Graph graph_) {
@@ -38,9 +23,9 @@ namespace graphlib { namespace executor {
 		return std::move(result);
 	}
 
-	ExecutionResult execute(It first, It last) {
+	Result execute(It first, It last) {
 		std::vector<graph::Value> mem(last - first, NAN);
-		std::vector<graph::Value> values;
+		std::vector<graph::Value> values; 
 		for (It it = first; it != last; ++it) {
 			// collecting parameters for function call
 			for (const auto& nptr : (*it)->predecessors()) {
@@ -48,32 +33,32 @@ namespace graphlib { namespace executor {
 			}
 
 			// evaluate
-			auto value = (*it)->function().evaluate(values);
+			auto value = (*it)->function()(values);
 			mem[(*it)->id()] = value;
 			values.clear();
 		}
-		return std::move(ExecutionResult{ std::move(mem) } );
+		return std::move(Result{ std::move(mem) } );
 	}
 
-	ExecutionResult stack_execute(It first, It last) {
+	Result stack_execute(It first, It last) {
 		std::vector<graph::Value> mem(last - first, NAN);
 		std::stack<graph::Value> datastack;
-		for (It it = first; it != last; ++it) {
+		for (first; first != last; ++first) {
 			std::vector<graph::Value> values;
 			// collecting parameters for function call
-			for (size_t i = 0; i < (*it)->predecessorSize(); ++i) {
+			for (size_t i = 0; i < (*first)->predecessorSize(); ++i) {
 				values.push_back(datastack.top());
 				datastack.pop();
 			}
 
 			// evaluate
-			auto value = (*it)->function().evaluate(values);
-			mem[(*it)->id()] = value;
-			for (size_t i = 0; i < (*it)->successorSize(); ++i) {
+			auto value = (*first)->function().evaluate(values);
+			mem[(*first)->id()] = value;
+			for (size_t i = 0; i < (*first)->successorSize(); ++i) {
 				datastack.push(value);
 			}
 		}
-		return std::move(ExecutionResult{ std::move(mem) });
+		return std::move(Result{ std::move(mem) });
 	}
 }}
 

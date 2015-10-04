@@ -24,8 +24,8 @@ namespace graphlib { namespace graph { namespace function {
 		virtual function_ptr clone(Value) const = 0;
 		virtual std::string name() const = 0;
 		virtual void value(Value) {}
-		virtual ~Function() {}
-		static void init();
+		virtual Value operator()(const vector<Value>& input) const = 0;
+		static void initialize();
 	};
 
 	class FunctionAdd : public Function {
@@ -40,7 +40,7 @@ namespace graphlib { namespace graph { namespace function {
 		virtual Value evaluate(const vector<Value>& input) const override;
 		virtual function_ptr clone(Value _value = 0.0) const override;
 
-		Value operator()(const vector<Value>& input) const;
+		Value operator()(const vector<Value>& input) const override;
 
 		static const std::string NAME;
 	private:
