@@ -17,7 +17,7 @@ namespace graphlib { namespace graph { namespace function {
 	class Function;
 	using function_ptr = std::unique_ptr < Function > ;
 
-	class Function {
+	class Function : public std::unary_function<vector<Value>, Value> {
 	public:
 		// evaluates the function
 		virtual Value evaluate(const vector<Value>& input) const = 0;
@@ -40,6 +40,8 @@ namespace graphlib { namespace graph { namespace function {
 		virtual Value evaluate(const vector<Value>& input) const override;
 		virtual function_ptr clone(Value _value = 0.0) const override;
 
+		Value operator()(const vector<Value>& input) const;
+
 		static const std::string NAME;
 	private:
 		static FunctionAdd example;
@@ -57,6 +59,8 @@ namespace graphlib { namespace graph { namespace function {
 		virtual Value evaluate(const vector<Value>& input) const override;
 		virtual function_ptr clone(Value _value = 0.0) const override;
 	
+		Value operator()(const vector<Value>& input) const ;
+
 		static const std::string NAME;
 	private:
 		static FunctionConstant example;
@@ -74,6 +78,8 @@ namespace graphlib { namespace graph { namespace function {
 		virtual std::string name() const override { return FunctionReciprocal::NAME; }
 		virtual Value evaluate(const vector<Value>& input) const override;
 		virtual function_ptr clone(Value _value = 0.0) const override;
+
+		Value operator()(const vector<Value>& input) const;
 
 		static const std::string NAME;
 	private:
@@ -93,6 +99,8 @@ namespace graphlib { namespace graph { namespace function {
 		virtual Value evaluate(const vector<Value>& input) const override;
 		virtual function_ptr clone(Value _value = 0.0) const override;
 	
+		Value operator()(const vector<Value>& input) const;
+
 		static const std::string NAME;
 	private:
 		Value _value;
@@ -111,6 +119,8 @@ namespace graphlib { namespace graph { namespace function {
 		virtual Value evaluate(const vector<Value>& input) const override;
 		virtual function_ptr clone(Value _value = 0.0) const override;
 	
+		Value operator()(const vector<Value>& input) const;
+
 		static const std::string NAME;
 	private:
 		static FunctionOpposite example;
@@ -128,6 +138,8 @@ namespace graphlib { namespace graph { namespace function {
 		virtual Value evaluate(const vector<Value>& input) const override;
 		virtual function_ptr clone(Value _value = 0.0) const override;
 
+		Value operator()(const vector<Value>& input) const;
+
 		static const std::string NAME;
 	private:
 		static FunctionMultiply example;
@@ -144,6 +156,8 @@ namespace graphlib { namespace graph { namespace function {
 		virtual std::string name() const override { return FunctionSquareRoot::NAME; }
 		virtual Value evaluate(const vector<Value>& input) const override;
 		virtual function_ptr clone(Value _value = 0.0) const override;
+
+		Value operator()(const vector<Value>& input) const;
 
 		static const std::string NAME;
 	private:

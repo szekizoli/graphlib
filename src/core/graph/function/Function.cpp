@@ -34,6 +34,11 @@ namespace graphlib { namespace graph { namespace function {
 		return std::move(std::make_unique<FunctionAdd>());
 	}
 
+	Value graphlib::graph::function::FunctionAdd::operator()(const vector<Value>& input) const
+	{
+		return std::accumulate(begin(input), end(input), Value{ 0 });
+	}
+
 	// FunctionConstant
 	
 	FunctionConstant::FunctionConstant(funcexample) :_value(Value{0.0}) {
@@ -48,15 +53,25 @@ namespace graphlib { namespace graph { namespace function {
 		return std::move(std::make_unique<FunctionConstant>(value_));
 	}
 
+	Value graphlib::graph::function::FunctionConstant::operator()(const vector<Value>& input) const
+	{
+		return _value;
+	}
+
 	//FunctionReciprocal
 	FunctionReciprocal::FunctionReciprocal(funcexample){ 
 		FunctionBuilder::registerFunction(FunctionReciprocal::NAME, this); 
 	}
 	Value FunctionReciprocal::evaluate(const vector<Value>& input) const {
-		return 1 / input[0];
+		return 1.0 / input[0];
 	}
 	function_ptr FunctionReciprocal::clone(Value) const {
 		return std::move(std::make_unique<FunctionReciprocal>());
+	}
+
+	Value graphlib::graph::function::FunctionReciprocal::operator()(const vector<Value>& input) const
+	{
+		return Value{ 1.0 }  / input[0];
 	}
 
 	//FunctionInput
@@ -75,6 +90,11 @@ namespace graphlib { namespace graph { namespace function {
 		_value = value_;
 	}
 
+	Value graphlib::graph::function::FunctionInput::operator()(const vector<Value>& input) const
+	{
+		return this->_value;
+	}
+
 	//FunctionOpposite
 	FunctionOpposite::FunctionOpposite(funcexample){
 		FunctionBuilder::registerFunction(FunctionOpposite::NAME, this);
@@ -84,6 +104,11 @@ namespace graphlib { namespace graph { namespace function {
 	}
 	function_ptr FunctionOpposite::clone(Value) const {
 		return std::move(std::make_unique<FunctionOpposite>());
+	}
+
+	Value graphlib::graph::function::FunctionOpposite::operator()(const vector<Value>& input) const
+	{
+		return Value{ 0 } -input[0];
 	}
 
 	//FunctionMultiply
@@ -97,6 +122,11 @@ namespace graphlib { namespace graph { namespace function {
 		return std::move(std::make_unique<FunctionMultiply>());
 	}
 
+	Value graphlib::graph::function::FunctionMultiply::operator()(const vector<Value>& input) const
+	{
+		return std::accumulate(begin(input), end(input), Value{ 1.0 }, std::multiplies<Value>());
+	}
+
 	//FunctionSquareRoot
 	FunctionSquareRoot::FunctionSquareRoot(funcexample){
 		FunctionBuilder::registerFunction(FunctionSquareRoot::NAME, this);
@@ -106,5 +136,9 @@ namespace graphlib { namespace graph { namespace function {
 	}
 	function_ptr FunctionSquareRoot::clone(Value) const {
 		return std::move(std::make_unique<FunctionSquareRoot>());
+	}
+	Value FunctionSquareRoot::operator()(const vector<Value>& input) const
+	{
+		return sqrt(input[0]);
 	}
 }}}
